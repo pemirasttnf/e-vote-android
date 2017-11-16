@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import sttnf.app.pemira.R;
 import sttnf.app.pemira.base.BaseActivity;
 import sttnf.app.pemira.util.CustomViewPager;
@@ -20,12 +21,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         super.onCreate(savedInstanceState);
         binding(R.layout.activity_main);
         presenter.setupViewPager(vpOption);
-        vpOption.setPagingEnabled(false);
         vpOption.setOffscreenPageLimit(4);
     }
 
-    public void startedItem() {
-        vpOption.setCurrentItem(1, true);
+    public void startedItem(int position) {
+        vpOption.setCurrentItem(position, true);
     }
 
     @Override public FragmentManager getSupportFragment() {

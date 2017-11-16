@@ -1,4 +1,4 @@
-package sttnf.app.pemira.util;
+package sttnf.app.pemira.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

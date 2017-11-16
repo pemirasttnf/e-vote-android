@@ -31,7 +31,7 @@ public class IntroduceFragment extends Fragment {
 
     @OnClick(R.id.btn_ready)
     public void btnReadyClicked() {
-        ((MainActivity) getActivity()).startedItem();
+        ((MainActivity) getActivity()).startedItem(1);
     }
 
 }
