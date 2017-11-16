@@ -46,7 +46,7 @@ public class CalonAdapter extends RecyclerView.Adapter<CalonAdapter.Holder> {
         holder.txtNim.setText(datas.get(position).getNim());
         holder.cardItem.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                listener.onClick(position, v);
+                listener.onClick(position);
             }
         });
     }

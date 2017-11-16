@@ -61,7 +61,7 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
 
     private void isValidNim(int count) {
         if (count < 10) {
-            showCaution("Anda tidak sesuai dengan format NIM.");
+            showCaution("NIM anda tidak sesuai dengan format.");
         } else {
             layoutCaution.setVisibility(View.GONE);
             login();

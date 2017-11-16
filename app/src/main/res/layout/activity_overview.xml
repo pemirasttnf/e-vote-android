@@ -6,6 +6,11 @@
     android:background="@android:color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/colorPrimary"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,6 +99,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="10"
                     android:layout_margin="10dp"
+                    android:lines="1"
+                    android:inputType="numberDecimal"
                     android:hint="Masukkan nim anda..."
                     android:padding="10dp"
                     android:background="@null"/>

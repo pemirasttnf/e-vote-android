@@ -1,6 +1,5 @@
 package sttnf.app.pemira.core.main;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import sttnf.app.pemira.base.BasePresenter;
@@ -9,6 +8,7 @@ import sttnf.app.pemira.core.main.fragment.DPMFragment;
 import sttnf.app.pemira.core.main.fragment.FinishFragment;
 import sttnf.app.pemira.core.main.fragment.IntroduceFragment;
 import sttnf.app.pemira.adapter.ViewPagerAdapter;
+import sttnf.app.pemira.util.EmptyFragment;
 
 /**
  * Created by isfaaghyth on 11/16/17.
@@ -28,8 +28,10 @@ class MainPresenter extends BasePresenter<MainView> {
         adapter.addFragment(new IntroduceFragment());
         adapter.addFragment(new DPMFragment());
         adapter.addFragment(new BEMFragment());
+        adapter.addFragment(new EmptyFragment());
         adapter.addFragment(new FinishFragment());
         viewPager.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
 }

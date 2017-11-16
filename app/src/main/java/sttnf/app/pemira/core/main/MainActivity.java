@@ -4,14 +4,17 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import sttnf.app.pemira.R;
+import sttnf.app.pemira.adapter.ViewPagerAdapter;
 import sttnf.app.pemira.base.BaseActivity;
+import sttnf.app.pemira.core.main.fragment.DPMFragment;
+import sttnf.app.pemira.core.main.fragment.FinishFragment;
 import sttnf.app.pemira.util.CustomViewPager;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainView {
 
     @BindView(R.id.vp_option) CustomViewPager vpOption;
+
 
     @Override protected MainPresenter initPresenter() {
         return new MainPresenter(this);
@@ -21,7 +24,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         super.onCreate(savedInstanceState);
         binding(R.layout.activity_main);
         presenter.setupViewPager(vpOption);
-        vpOption.setOffscreenPageLimit(4);
+        vpOption.setOffscreenPageLimit(0);
+        vpOption.setPagingEnabled(false);
     }
 
     public void startedItem(int position) {
@@ -31,4 +35,5 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     @Override public FragmentManager getSupportFragment() {
         return getSupportFragmentManager();
     }
+
 }
