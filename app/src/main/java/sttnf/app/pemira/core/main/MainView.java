@@ -8,6 +8,6 @@ import android.support.v4.app.FragmentManager;
  * github: @isfaaghyth
  */
 
-public interface MainView {
+interface MainView {
     FragmentManager getSupportFragment();
 }

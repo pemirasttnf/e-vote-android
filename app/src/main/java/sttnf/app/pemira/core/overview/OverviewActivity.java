@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +18,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observer;
 import sttnf.app.pemira.R;
 import sttnf.app.pemira.base.BaseActivity;
 import sttnf.app.pemira.core.main.MainActivity;
+import sttnf.app.pemira.model.Login;
+import sttnf.app.pemira.util.RxFirebase;
 
 /**
  * Created by isfaaghyth on 11/16/17.
@@ -38,6 +47,8 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     @BindView(R.id.card_prodi) CardView cardProdi;
     @BindView(R.id.txt_prodi) TextView txtProdi;
 
+    private DatabaseReference dbref;
+
     @Override protected OverviewPresenter initPresenter() {
         return new OverviewPresenter(this);
     }
@@ -45,18 +56,32 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding(R.layout.activity_overview);
+        edtNim.setText("0110215046");
+        dbref = FirebaseDatabase.getInstance().getReference();
         checkNim();
+
+        findViewById(R.id.test).setOnClickListener(v -> {
+            presenter.doLogin("0110215046", "1997-06-28");
+        });
     }
 
     private void checkNim() {
         edtNim.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                nimCanged(s.toString());
+            }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                nimCanged(s.toString());
+            }
             @Override public void afterTextChanged(Editable s) {
-                checkProdi(s.toString());
-                isValidNim(s.length());
+                nimCanged(s.toString());
             }
         });
+    }
+
+    private void nimCanged(String s) {
+        checkProdi(s);
+        isValidNim(s.length());
     }
 
     private void isValidNim(int count) {
@@ -74,29 +99,25 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     }
 
     private void checkProdi(String nim) {
-        if (checkPrefixProdi(nim).equals(getString(R.string.prodi_si))) {
-            cardProdi.setCardBackgroundColor(ContextCompat.getColor(this, R.color.colorCaution));
-            showProdi("SI");
-        } else if (checkPrefixProdi(nim).equals(getString(R.string.prodi_ti))) {
-            cardProdi.setCardBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
-            showProdi("TI");
+        if (presenter.checkPrefixProdi(nim).equals(getString(R.string.prodi_si))) {
+            showProdiLabel("SI", R.color.colorCaution);
+        } else if (presenter.checkPrefixProdi(nim).equals(getString(R.string.prodi_ti))) {
+            showProdiLabel("TI", R.color.colorPrimary);
         } else {
             layoutProdi.setVisibility(View.GONE);
         }
     }
 
-    private void showProdi(String prodi) {
+    private void showProdiLabel(String prodi, int prodiColor) {
+        cardProdi.setCardBackgroundColor(ContextCompat.getColor(this, prodiColor));
         layoutProdi.setVisibility(View.VISIBLE);
         txtProdi.setText(prodi);
-    }
-
-    public String checkPrefixProdi(String str) {
-        return str.length() < 5 ? str : str.substring(0, 5);
     }
 
     private void login() {
         final String nim = edtNim.getText().toString();
         final AlertDialog adPassword = new AlertDialog.Builder(this).create();
+
         @SuppressLint("InflateParams") View passwordLayout = LayoutInflater
                 .from(this)
                 .inflate(R.layout.dialog_password_require, null);
@@ -108,16 +129,31 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                if (edtPassword.getText().toString().equals("123")) {
-                    startActivity(new Intent(OverviewActivity.this, MainActivity.class));
-                    finish();
-                } else {
-                    adPassword.dismiss();
-                }
+                edtPassword.setText("1997-06-28");
+
+                adPassword.dismiss();
             }
         });
 
         adPassword.setView(passwordLayout);
         adPassword.show();
+    }
+
+    @Override public void onSuccess(Login result) {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("nim", result.getData().getNim());
+        RxFirebase.setValue(dbref.child("mahasiswa"), data)
+                .subscribe(new Observer<Boolean>() {
+                    @Override public void onCompleted() {
+                        startActivity(new Intent(OverviewActivity.this, MainActivity.class));
+                        finish();
+                    }
+                    @Override public void onError(Throwable e) {}
+                    @Override public void onNext(Boolean aBoolean) {}
+                });
+    }
+
+    @Override public void onError(String err) {
+        showCaution(err);
     }
 }

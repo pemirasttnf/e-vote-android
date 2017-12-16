@@ -4,7 +4,6 @@ import android.support.v4.view.ViewPager;
 
 import sttnf.app.pemira.base.BasePresenter;
 import sttnf.app.pemira.core.main.fragment.BEMFragment;
-import sttnf.app.pemira.core.main.fragment.DPMFragment;
 import sttnf.app.pemira.core.main.fragment.FinishFragment;
 import sttnf.app.pemira.core.main.fragment.IntroduceFragment;
 import sttnf.app.pemira.adapter.ViewPagerAdapter;
@@ -26,7 +25,6 @@ class MainPresenter extends BasePresenter<MainView> {
 
     void setupViewPager(ViewPager viewPager) {
         adapter.addFragment(new IntroduceFragment());
-        adapter.addFragment(new DPMFragment());
         adapter.addFragment(new BEMFragment());
         adapter.addFragment(new EmptyFragment());
         adapter.addFragment(new FinishFragment());

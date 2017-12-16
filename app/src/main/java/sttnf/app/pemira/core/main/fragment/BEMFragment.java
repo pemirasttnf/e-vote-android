@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -21,7 +19,6 @@ import sttnf.app.pemira.R;
 import sttnf.app.pemira.adapter.CalonAdapter;
 import sttnf.app.pemira.core.main.MainActivity;
 import sttnf.app.pemira.model.Calon;
-import sttnf.app.pemira.model.CalonBus;
 import sttnf.app.pemira.util.CacheManager;
 import sttnf.app.pemira.util.ItemClickListener;
 

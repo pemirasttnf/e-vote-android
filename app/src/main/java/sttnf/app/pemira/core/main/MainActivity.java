@@ -5,10 +5,7 @@ import android.support.v4.app.FragmentManager;
 
 import butterknife.BindView;
 import sttnf.app.pemira.R;
-import sttnf.app.pemira.adapter.ViewPagerAdapter;
 import sttnf.app.pemira.base.BaseActivity;
-import sttnf.app.pemira.core.main.fragment.DPMFragment;
-import sttnf.app.pemira.core.main.fragment.FinishFragment;
 import sttnf.app.pemira.util.CustomViewPager;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainView {

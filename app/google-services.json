@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "280977734110",
+    "firebase_url": "https://isfaaghyth-2ffdc.firebaseio.com",
+    "project_id": "isfaaghyth-2ffdc",
+    "storage_bucket": "isfaaghyth-2ffdc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280977734110:android:66afa8eb395dcee4",
+        "android_client_info": {
+          "package_name": "sttnf.app.pemira"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280977734110-mp5mk0rtllnen12b0pabgj4uiik1dqcu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sttnf.app.pemira",
+            "certificate_hash": "0f058e9963e79a8e54f59684e3693a1558785760"
+          }
+        },
+        {
+          "client_id": "280977734110-1svb0k8e4eogfu1rtfgqpbd1ruc9lk4o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6HC9Cakl1TDRSomSqphI-S1Zx0dlkh4w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "280977734110-1svb0k8e4eogfu1rtfgqpbd1ruc9lk4o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,12 @@
 package sttnf.app.pemira.base;
 
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import android.util.Log;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 import sttnf.app.pemira.network.Network;
 import sttnf.app.pemira.network.Routes;
 
@@ -11,9 +16,10 @@ import sttnf.app.pemira.network.Routes;
  */
 
 public class BasePresenter<V> {
-    protected V view;
+    public V view;
     protected Routes service;
-    private CompositeDisposable compositeDisposable;
+    private CompositeSubscription compositeSubscription;
+    private Subscriber subscriber;
 
     public void attachView(V view) {
         this.view = view;
@@ -22,13 +28,27 @@ public class BasePresenter<V> {
 
     public void dettachView() {
         this.view = null;
-        if (compositeDisposable != null) {
-            compositeDisposable.clear();
+        if (compositeSubscription != null && compositeSubscription.hasSubscriptions()) {
+            compositeSubscription.unsubscribe();
+            Log.e("BasePresenter", "dettachView");
         }
     }
 
-    public void subscribe(Disposable subscriber) {
-        if (compositeDisposable == null) compositeDisposable = new CompositeDisposable();
-        compositeDisposable.add(subscriber);
+    protected void onSubscribe(Observable observable, Subscriber subscriber) {
+        this.subscriber = subscriber;
+
+        if (compositeSubscription == null) {
+            compositeSubscription = new CompositeSubscription();
+        }
+        compositeSubscription.add(observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber));
+    }
+
+    protected void stop() {
+        if (subscriber != null) {
+            subscriber.unsubscribe();
+        }
     }
 }
