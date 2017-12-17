@@ -12,7 +12,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
     @BindView(R.id.vp_option) CustomViewPager vpOption;
 
-
     @Override protected MainPresenter initPresenter() {
         return new MainPresenter(this);
     }

@@ -17,8 +17,8 @@ import sttnf.app.pemira.model.Login;
 public interface Routes {
 
     @FormUrlEncoded
-    @POST("sisfo/api/user")
-    @Headers(Follow201LocationInterceptor.FOLLOW_HEADER)
+    @POST("sisfo/api/user/")
+    @Headers("Access-Control-Allow-Origin: *")
     Observable<Response<Login>> doLogin(
             @Field("token") String token,
             @Field("nim") String nim,

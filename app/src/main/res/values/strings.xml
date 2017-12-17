@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Pemira</string>
 
-    <string name="prodi_si">01101</string>
-    <string name="prodi_ti">01102</string>
+    <string name="prodi_si">SI</string>
+    <string name="prodi_ti">TI</string>
+
+    <string name="prefix_si">01101</string>
+    <string name="prefix_ti">01102</string>
 </resources>

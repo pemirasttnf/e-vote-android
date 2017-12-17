@@ -44,8 +44,7 @@ public class FinishFragment extends Fragment {
 
     public void receiveData() {
         Calon bem = new Gson().fromJson(CacheManager.grabString("bem"), Calon.class);
-        new GlideUtil().with(getContext())
-                .into(imgBem).loadImage(bem.getAvatar());
+        new GlideUtil().with(getContext()).into(imgBem).loadImage(bem.getAvatar());
         Log.d("BEM", bem.getName());
     }
 

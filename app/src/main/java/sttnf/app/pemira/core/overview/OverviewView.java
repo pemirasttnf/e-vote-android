@@ -1,6 +1,7 @@
 package sttnf.app.pemira.core.overview;
 
-import sttnf.app.pemira.model.Login;
+import com.google.firebase.database.DatabaseReference;
+
 
 /**
  * Created by isfaaghyth on 11/16/17.
@@ -8,6 +9,7 @@ import sttnf.app.pemira.model.Login;
  */
 
 interface OverviewView {
-    void onSuccess(Login result);
+    void onSuccess(boolean isSuccess);
+    DatabaseReference dbRef();
     void onError(String err);
 }

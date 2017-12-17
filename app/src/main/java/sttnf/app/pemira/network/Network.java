@@ -18,13 +18,22 @@ import sttnf.app.pemira.util.UnsafeOkHttpClient;
 
 public class Network {
     public static Retrofit CLIENT() {
+
+        HttpLoggingInterceptor t = new HttpLoggingInterceptor();
+        t.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
+
+        OkHttpClient test = new OkHttpClient.Builder()
+                .addInterceptor(t)
+                .build();
+
         Gson gson = new GsonBuilder().setLenient().create();
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.MAIN_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(okHttpClient)
+                .client(test)
                 .build();
     }
 }

@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "AES_PASS", "\"d5170a3e24af791ba3d674760619fcd9\"")
         buildConfigField("String", "MAIN_URL", "\"https://info.nurulfikri.ac.id/\"")
     }
     compileOptions {
@@ -32,8 +33,10 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.scottyab:aescrypt:0.0.1'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.github.isfaaghyth:Rak:1.0.0'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.jakewharton:butterknife:8.7.0'
     compile 'com.android.support:design:25.3.1'
@@ -47,7 +50,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     compile 'com.google.firebase:firebase-database:10.0.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 }

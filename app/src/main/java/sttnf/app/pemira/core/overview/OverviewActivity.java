@@ -18,8 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -30,6 +33,7 @@ import sttnf.app.pemira.R;
 import sttnf.app.pemira.base.BaseActivity;
 import sttnf.app.pemira.core.main.MainActivity;
 import sttnf.app.pemira.model.Login;
+import sttnf.app.pemira.util.Conts;
 import sttnf.app.pemira.util.RxFirebase;
 
 /**
@@ -61,7 +65,7 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
         checkNim();
 
         findViewById(R.id.test).setOnClickListener(v -> {
-            presenter.doLogin("0110215046", "1997-06-28");
+            presenter.testLogin();
         });
     }
 
@@ -99,10 +103,10 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     }
 
     private void checkProdi(String nim) {
-        if (presenter.checkPrefixProdi(nim).equals(getString(R.string.prodi_si))) {
-            showProdiLabel("SI", R.color.colorCaution);
-        } else if (presenter.checkPrefixProdi(nim).equals(getString(R.string.prodi_ti))) {
-            showProdiLabel("TI", R.color.colorPrimary);
+        if (presenter.checkPrefixProdi(nim).equals(getString(R.string.prefix_si))) {
+            showProdiLabel(getString(R.string.prodi_si), R.color.colorCaution);
+        } else if (presenter.checkPrefixProdi(nim).equals(getString(R.string.prefix_ti))) {
+            showProdiLabel(getString(R.string.prodi_ti), R.color.colorPrimary);
         } else {
             layoutProdi.setVisibility(View.GONE);
         }
@@ -117,43 +121,34 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     private void login() {
         final String nim = edtNim.getText().toString();
         final AlertDialog adPassword = new AlertDialog.Builder(this).create();
-
         @SuppressLint("InflateParams") View passwordLayout = LayoutInflater
                 .from(this)
                 .inflate(R.layout.dialog_password_require, null);
-
         adPassword.setTitle("Masukkan password anda");
-
         final EditText edtPassword = ButterKnife.findById(passwordLayout, R.id.edt_password);
         Button btnSubmit = ButterKnife.findById(passwordLayout, R.id.btn_submit);
-
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                edtPassword.setText("1997-06-28");
-
-                adPassword.dismiss();
-            }
+        btnSubmit.setOnClickListener(v -> {
+            presenter.doLogin(nim, edtPassword.getText().toString().trim());
+            adPassword.dismiss();
         });
-
         adPassword.setView(passwordLayout);
         adPassword.show();
     }
 
-    @Override public void onSuccess(Login result) {
-        HashMap<String, String> data = new HashMap<>();
-        data.put("nim", result.getData().getNim());
-        RxFirebase.setValue(dbref.child("mahasiswa"), data)
-                .subscribe(new Observer<Boolean>() {
-                    @Override public void onCompleted() {
-                        startActivity(new Intent(OverviewActivity.this, MainActivity.class));
-                        finish();
-                    }
-                    @Override public void onError(Throwable e) {}
-                    @Override public void onNext(Boolean aBoolean) {}
-                });
+    @Override public void onSuccess(boolean isSuccess) {
+        if (isSuccess) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        } else {
+            onError("Periksa kembal");
+        }
     }
 
     @Override public void onError(String err) {
         showCaution(err);
+    }
+
+    @Override public DatabaseReference dbRef() {
+        return dbref;
     }
 }
