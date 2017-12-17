@@ -3,6 +3,7 @@ package sttnf.app.pemira.core.overview;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.scottyab.aescrypt.AESCrypt;
@@ -27,8 +28,11 @@ import sttnf.app.pemira.util.RxFirebase;
 
 class OverviewPresenter extends BasePresenter<OverviewView> {
 
+    private DatabaseReference dbref;
+
     OverviewPresenter(OverviewView view) {
         super.attachView(view);
+        dbref = FirebaseDatabase.getInstance().getReference();
     }
 
     String checkPrefixProdi(String str) {
@@ -78,37 +82,37 @@ class OverviewPresenter extends BasePresenter<OverviewView> {
      * @param user
      */
     void doStateLogin(Mahasiswa user) {
-        DatabaseReference ref = view.dbRef().child(Conts.MAHASISWA);
+        DatabaseReference ref = dbref.child(Conts.MAHASISWA);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.child(user.getNim()).exists()) {
-                    HashMap<String, String> data = new HashMap<>();
-                    data.put("nim", user.getNim());
-                    data.put("nama", user.getNama());
-                    data.put("prodi", user.getProdi());
-                    data.put("status_mhsw", user.getStatus_mhsw());
-                    data.put("tahun_angkatan", user.getTahun_angkatan());
-                    try {
-                        String yours = AESCrypt.encrypt(Conts.HASHPASSW, user.getNim());
-                        RxFirebase.setValue(view.dbRef()
-                                .child(Conts.MAHASISWA)
-                                .child(yours), data)
-                                .subscribe(new Observer<Boolean>() {
-                                    @Override public void onCompleted() {
-                                        //Untuk menyimpan session berdasarkan nim.
-                                        Rak.entry("key", yours);
-                                        view.onSuccess(true);
-                                    }
-                                    @Override public void onError(Throwable e) {
-                                        view.onSuccess(false);
-                                    }
-                                    @Override public void onNext(Boolean aBoolean) {}
-                                });
-                    } catch (GeneralSecurityException e) {
-                        e.printStackTrace();
+                try {
+                    String yours = AESCrypt.encrypt(Conts.HASHPASSW, user.getNim());
+                    if (!dataSnapshot.child(yours).exists()) {
+                        HashMap<String, String> data = new HashMap<>();
+                        data.put("nim", user.getNim());
+                        data.put("nama", user.getNama());
+                        data.put("prodi", user.getProdi());
+                        data.put("status_mhsw", user.getStatus_mhsw());
+                        data.put("tahun_angkatan", user.getTahun_angkatan());
+                            RxFirebase.setValue(dbref
+                                    .child(Conts.MAHASISWA)
+                                    .child(yours), data)
+                                    .subscribe(new Observer<Boolean>() {
+                                        @Override public void onCompleted() {
+                                            //Untuk menyimpan session berdasarkan nim.
+                                            Rak.entry("key", yours);
+                                            view.onSuccess(true);
+                                        }
+                                        @Override public void onError(Throwable e) {
+                                            view.onSuccess(false);
+                                        }
+                                        @Override public void onNext(Boolean aBoolean) {}
+                                    });
+                    } else {
+                        view.onError("Anda sudah melakukan vote sebelumnya");
                     }
-                } else {
-                    view.onError("Anda sudah melakukan vote sebelumnya");
+                } catch (GeneralSecurityException e) {
+                    e.printStackTrace();
                 }
             }
             @Override public void onCancelled(DatabaseError databaseError) {

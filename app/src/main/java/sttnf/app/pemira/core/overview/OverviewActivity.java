@@ -51,8 +51,6 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     @BindView(R.id.card_prodi) CardView cardProdi;
     @BindView(R.id.txt_prodi) TextView txtProdi;
 
-    private DatabaseReference dbref;
-
     @Override protected OverviewPresenter initPresenter() {
         return new OverviewPresenter(this);
     }
@@ -61,12 +59,9 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
         super.onCreate(savedInstanceState);
         binding(R.layout.activity_overview);
         edtNim.setText("0110215046");
-        dbref = FirebaseDatabase.getInstance().getReference();
         checkNim();
 
-        findViewById(R.id.test).setOnClickListener(v -> {
-            presenter.testLogin();
-        });
+        findViewById(R.id.test).setOnClickListener(v -> presenter.testLogin());
     }
 
     private void checkNim() {
@@ -146,9 +141,5 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
 
     @Override public void onError(String err) {
         showCaution(err);
-    }
-
-    @Override public DatabaseReference dbRef() {
-        return dbref;
     }
 }

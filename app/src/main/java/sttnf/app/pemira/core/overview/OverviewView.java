@@ -10,6 +10,5 @@ import com.google.firebase.database.DatabaseReference;
 
 interface OverviewView {
     void onSuccess(boolean isSuccess);
-    DatabaseReference dbRef();
     void onError(String err);
 }

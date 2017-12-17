@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import sttnf.app.pemira.R;
 import sttnf.app.pemira.model.Calon;
+import sttnf.app.pemira.model.Calons;
 import sttnf.app.pemira.util.ItemClickListener;
 
 /**
@@ -27,10 +28,10 @@ import sttnf.app.pemira.util.ItemClickListener;
 public class CalonAdapter extends RecyclerView.Adapter<CalonAdapter.Holder> {
 
     private ItemClickListener listener;
-    private ArrayList<Calon> datas;
+    private ArrayList<Calons> datas;
     private Context context;
 
-    public CalonAdapter(ArrayList<Calon> datas, ItemClickListener listener) {
+    public CalonAdapter(ArrayList<Calons> datas, ItemClickListener listener) {
         this.listener = listener;
         this.datas = datas;
     }
@@ -41,14 +42,10 @@ public class CalonAdapter extends RecyclerView.Adapter<CalonAdapter.Holder> {
     }
 
     @Override public void onBindViewHolder(Holder holder, final int position) {
-        Glide.with(context).load(datas.get(position).getAvatar()).centerCrop().into(holder.imgAvatar);
-        holder.txtName.setText(datas.get(position).getName());
-        holder.txtNim.setText(datas.get(position).getNim());
-        holder.cardItem.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                listener.onClick(position);
-            }
-        });
+        Glide.with(context).load(datas.get(position).getCapresma().getAvatar()).centerCrop().into(holder.imgAvatar);
+        holder.txtName.setText(datas.get(position).getCapresma().getNama());
+        holder.txtNim.setText(datas.get(position).getCawapresma().getNama());
+        holder.cardItem.setOnClickListener(v -> listener.onClick(position));
     }
 
     @Override public int getItemCount() {

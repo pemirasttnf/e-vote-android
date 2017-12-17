@@ -6,22 +6,23 @@ package sttnf.app.pemira.model;
  */
 
 public class Calon {
+    private String uuid;
     private String avatar;
-    private String name;
+    private String nama;
     private String nim;
 
-    public Calon(String avatar, String name, String nim) {
-        this.avatar = avatar;
-        this.name = name;
-        this.nim = nim;
+    public Calon() {}
+
+    public String getUuid() {
+        return uuid;
     }
 
     public String getAvatar() {
         return avatar;
     }
 
-    public String getName() {
-        return name;
+    public String getNama() {
+        return nama;
     }
 
     public String getNim() {
