@@ -3,7 +3,9 @@ package sttnf.app.pemira.core.overview;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -28,11 +30,19 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import io.isfaaghyth.rak.Rak;
+import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.Observer;
 import sttnf.app.pemira.R;
 import sttnf.app.pemira.base.BaseActivity;
 import sttnf.app.pemira.core.main.MainActivity;
 import sttnf.app.pemira.model.Login;
+import sttnf.app.pemira.network.Network;
+import sttnf.app.pemira.network.Routes;
 import sttnf.app.pemira.util.Conts;
 import sttnf.app.pemira.util.RxFirebase;
 
@@ -44,12 +54,15 @@ import sttnf.app.pemira.util.RxFirebase;
 public class OverviewActivity extends BaseActivity<OverviewPresenter> implements OverviewView {
 
     @BindView(R.id.layout_caution) LinearLayout layoutCaution;
+    @BindView(R.id.btn_login) FloatingActionButton btnLogin;
     @BindView(R.id.txt_caution) TextView txtCaution;
     @BindView(R.id.edt_nim) EditText edtNim;
 
     @BindView(R.id.layout_prodi) RelativeLayout layoutProdi;
     @BindView(R.id.card_prodi) CardView cardProdi;
     @BindView(R.id.txt_prodi) TextView txtProdi;
+
+    private AlertDialog adPassword;
 
     @Override protected OverviewPresenter initPresenter() {
         return new OverviewPresenter(this);
@@ -58,38 +71,24 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding(R.layout.activity_overview);
-        edtNim.setText("0110215046");
-        checkNim();
-
-        findViewById(R.id.test).setOnClickListener(v -> presenter.testLogin());
+        adPassword = new AlertDialog.Builder(this).create();
+        edtNim.addTextChangedListener(presenter.nimWatch());
+        btnLogin.setOnClickListener(v -> login());
     }
 
-    private void checkNim() {
-        edtNim.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                nimCanged(s.toString());
-            }
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-                nimCanged(s.toString());
-            }
-            @Override public void afterTextChanged(Editable s) {
-                nimCanged(s.toString());
-            }
-        });
-    }
-
-    private void nimCanged(String s) {
+    public void nimCanged(String s) {
         checkProdi(s);
-        isValidNim(s.length());
-    }
-
-    private void isValidNim(int count) {
-        if (count < 10) {
+        if (s.length() < 10) {
+            validationNim(View.VISIBLE, View.GONE);
             showCaution("NIM anda tidak sesuai dengan format.");
         } else {
-            layoutCaution.setVisibility(View.GONE);
-            login();
+            validationNim(View.GONE, View.VISIBLE);
         }
+    }
+
+    private void validationNim(int... v) {
+        layoutCaution.setVisibility(v[0]);
+        btnLogin.setVisibility(v[1]);
     }
 
     private void showCaution(String message) {
@@ -115,31 +114,34 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
 
     private void login() {
         final String nim = edtNim.getText().toString();
-        final AlertDialog adPassword = new AlertDialog.Builder(this).create();
-        @SuppressLint("InflateParams") View passwordLayout = LayoutInflater
-                .from(this)
-                .inflate(R.layout.dialog_password_require, null);
+        View passwordLayout = LayoutInflater.from(this).inflate(R.layout.dialog_password_require, null);
         adPassword.setTitle("Masukkan password anda");
         final EditText edtPassword = ButterKnife.findById(passwordLayout, R.id.edt_password);
         Button btnSubmit = ButterKnife.findById(passwordLayout, R.id.btn_submit);
         btnSubmit.setOnClickListener(v -> {
             presenter.doLogin(nim, edtPassword.getText().toString().trim());
+            loader.show();
             adPassword.dismiss();
         });
         adPassword.setView(passwordLayout);
         adPassword.show();
     }
 
-    @Override public void onSuccess(boolean isSuccess) {
-        if (isSuccess) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        } else {
-            onError("Periksa kembal");
-        }
+    @Override public void onSuccess(Login res) {
+        loader.hide();
+        Rak.entry("nim", res.getData().getNim());
+        Rak.entry("token", res.getSecretToken());
+        Rak.entry("nama", res.getData().getName());
+        Rak.entry("avatar", res.getData().getAvatar());
+        Rak.entry("prodi", res.getData().getProgramStudi());
+        Rak.entry("statusMahasiswa", res.getData().getStatus());
+        Rak.entry("tahunAngkatan", res.getData().getTahunAngkatan());
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     @Override public void onError(String err) {
+        loader.hide();
         showCaution(err);
     }
 }

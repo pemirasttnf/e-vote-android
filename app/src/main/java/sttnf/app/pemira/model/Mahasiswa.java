@@ -7,28 +7,33 @@ package sttnf.app.pemira.model;
 
 public class Mahasiswa {
     private String nim;
-    private String nama;
-    private String prodi;
-    private String tahun_angkatan;
-    private String status_mhsw;
+    private String name;
+    private String programStudi;
+    private String tahunAngkatan;
+    private String status;
+    private String avatar;
 
     public String getNim() {
         return nim;
     }
 
-    public String getNama() {
-        return nama;
+    public String getName() {
+        return name;
     }
 
-    public String getProdi() {
-        return prodi;
+    public String getProgramStudi() {
+        return programStudi;
     }
 
-    public String getTahun_angkatan() {
-        return tahun_angkatan;
+    public String getTahunAngkatan() {
+        return tahunAngkatan;
     }
 
-    public String getStatus_mhsw() {
-        return status_mhsw;
+    public String getStatus() {
+        return status;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 }

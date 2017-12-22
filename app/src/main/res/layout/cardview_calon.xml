@@ -23,12 +23,12 @@
             <ImageView
                 android:id="@+id/img_avatar"
                 android:layout_width="match_parent"
-                android:src="@mipmap/ic_user"
+                android:src="@drawable/ic_pemira"
                 android:layout_height="@dimen/additional_cover_height"
                 android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/txt_name"
+                android:id="@+id/txt_capres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="afawfwaf"
@@ -40,11 +40,11 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/txt_nim"
+                android:id="@+id/txt_cawapres"
                 android:layout_width="match_parent"
                 android:text="awfwaf"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txt_name"
+                android:layout_below="@id/txt_capres"
                 android:paddingBottom="@dimen/additional_padding_bottom"
                 android:paddingLeft="@dimen/additional_title_padding"
                 android:paddingRight="@dimen/additional_title_padding"

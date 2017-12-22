@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.gson.Gson;
+import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,10 +37,9 @@ import sttnf.app.pemira.util.ItemClickListener;
 
 public class BEMFragment extends Fragment implements ItemClickListener, BEMView {
 
-    @BindView(R.id.lst_bem) RecyclerView lstbem;
+    @BindView(R.id.lst_bem) InfinitePlaceHolderView lstbem;
 
-    private ArrayList<Calons> data = new ArrayList<>();
-    private CalonAdapter adapter;
+    private List<Calon> calons = new ArrayList<>();
 
     public BEMFragment() {}
 
@@ -50,27 +51,32 @@ public class BEMFragment extends Fragment implements ItemClickListener, BEMView 
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         BEMPresenter presenter = new BEMPresenter(this);
-        lstbem.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new CalonAdapter(data, this);
-        presenter.getPaslonData();
-        lstbem.setAdapter(adapter);
+        calons.addAll(presenter.getPaslonData().getData());
+        initList();
     }
 
-    @Override public void onClick(int position) {
-        CacheManager.save("bem", new Gson().toJson(data.get(position)));
-        ((MainActivity) getActivity()).startedItem(4);
-    }
-
-    @Override public void onGetPaslon(Iterable<DataSnapshot> datas) {
-        data.clear();
-        for (DataSnapshot s: datas) {
-            Calons calon = s.getValue(Calons.class);
-            data.add(calon);
-            adapter.notifyDataSetChanged();
+    private void initList() {
+        lstbem.removeAllViews();
+        int position = 0;
+        for (Calon c: calons) {
+            Calon calon = new Calon();
+            calon.setName(c.getName());
+            calon.setCawapres(c.getCawapres());
+            calon.setCandidateId(c.getCandidateId());
+            lstbem.addView(
+                    new CalonAdapter(position)
+                    .with(getContext())
+                    .model(calon)
+                    .click(this)
+            );
+            position++;
         }
     }
 
-    @Override public void onError(String err) {
-
+    @Override public void onClick(int position) {
+        String result = new Gson().toJson(calons.get(position));
+        CacheManager.save("bem", result);
+        ((MainActivity) getActivity()).startedItem(4);
     }
+
 }

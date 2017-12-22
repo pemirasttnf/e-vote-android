@@ -1,7 +1,5 @@
 package sttnf.app.pemira.util;
 
-import android.view.View;
-
 /**
  * Created by isfaaghyth on 11/16/17.
  * github: @isfaaghyth

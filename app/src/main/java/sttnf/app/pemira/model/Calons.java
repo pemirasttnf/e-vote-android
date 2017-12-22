@@ -1,19 +1,16 @@
 package sttnf.app.pemira.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by isfaaghyth on 12/17/17.
  * github: @isfaaghyth
  */
 
 public class Calons {
-    private Calon capresma;
-    private Calon cawapresma;
+    private ArrayList<Calon> data;
 
-    public Calon getCapresma() {
-        return capresma;
-    }
-
-    public Calon getCawapresma() {
-        return cawapresma;
+    public ArrayList<Calon> getData() {
+        return data;
     }
 }

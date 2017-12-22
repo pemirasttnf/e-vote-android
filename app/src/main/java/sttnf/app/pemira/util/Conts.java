@@ -9,6 +9,7 @@ import sttnf.app.pemira.BuildConfig;
 
 public class Conts {
     public static final String HASHPASSW = BuildConfig.AES_PASS;
+    public static final String INFONF_TOKEN = BuildConfig.INFONF_TOKEN;
 
     public static final String MAHASISWA = "mahasiswa";
     public static final String VOTE = "vote";

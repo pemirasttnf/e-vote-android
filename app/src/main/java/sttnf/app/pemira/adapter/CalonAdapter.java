@@ -1,23 +1,23 @@
 package sttnf.app.pemira.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.mindorks.placeholderview.Animation;
+import com.mindorks.placeholderview.annotations.Animate;
+import com.mindorks.placeholderview.annotations.Click;
+import com.mindorks.placeholderview.annotations.Layout;
+import com.mindorks.placeholderview.annotations.Resolve;
+import com.mindorks.placeholderview.annotations.View;
+import com.mindorks.placeholderview.annotations.expand.ParentPosition;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import sttnf.app.pemira.R;
 import sttnf.app.pemira.model.Calon;
-import sttnf.app.pemira.model.Calons;
 import sttnf.app.pemira.util.ItemClickListener;
 
 /**
@@ -25,43 +25,50 @@ import sttnf.app.pemira.util.ItemClickListener;
  * github: @isfaaghyth
  */
 
-public class CalonAdapter extends RecyclerView.Adapter<CalonAdapter.Holder> {
+@Animate(Animation.SCALE_UP_ASC)
+@Layout(R.layout.cardview_calon)
+public class CalonAdapter {
+    @View(R.id.txt_capres) private TextView txtCapres;
+    @View(R.id.img_avatar) private ImageView imgAvatar;
+    @View(R.id.txt_cawapres) private TextView txtCawapres;
 
     private ItemClickListener listener;
-    private ArrayList<Calons> datas;
     private Context context;
+    private Calon calons;
 
-    public CalonAdapter(ArrayList<Calons> datas, ItemClickListener listener) {
+    private int position;
+
+    public CalonAdapter(int position) {
+        this.position = position;
+    }
+
+    public CalonAdapter with(Context context) {
+        this.context = context;
+        return this;
+    }
+
+    public CalonAdapter model(Calon calons) {
+        this.calons = calons;
+        return this;
+    }
+
+    public CalonAdapter click(ItemClickListener listener) {
         this.listener = listener;
-        this.datas = datas;
+        return this;
     }
 
-    @Override public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_calon, parent, false));
+    @Resolve
+    private void onResolved() {
+        txtCapres.setText(calons.getName());
+        txtCawapres.setText(calons.getCawapres());
+        Glide.with(context)
+                .load(calons.getHeader())
+                .centerCrop()
+                .into(imgAvatar);
     }
 
-    @Override public void onBindViewHolder(Holder holder, final int position) {
-        Glide.with(context).load(datas.get(position).getCapresma().getAvatar()).centerCrop().into(holder.imgAvatar);
-        holder.txtName.setText(datas.get(position).getCapresma().getNama());
-        holder.txtNim.setText(datas.get(position).getCawapresma().getNama());
-        holder.cardItem.setOnClickListener(v -> listener.onClick(position));
-    }
-
-    @Override public int getItemCount() {
-        return datas.size();
-    }
-
-    class Holder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.card_item) LinearLayout cardItem;
-        @BindView(R.id.img_avatar) ImageView imgAvatar;
-        @BindView(R.id.txt_name) TextView txtName;
-        @BindView(R.id.txt_nim) TextView txtNim;
-
-        Holder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
+    @Click(R.id.card_item)
+    private void onClick() {
+        listener.onClick(position);
     }
 }

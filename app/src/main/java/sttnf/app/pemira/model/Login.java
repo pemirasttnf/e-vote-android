@@ -6,14 +6,19 @@ package sttnf.app.pemira.model;
  */
 
 public class Login {
-    private String status;
+    private int statusCode;
     private Mahasiswa data;
+    private String secretToken;
 
-    public String getStatus() {
-        return status;
+    public int getStatusCode() {
+        return statusCode;
     }
 
     public Mahasiswa getData() {
         return data;
+    }
+
+    public String getSecretToken() {
+        return secretToken;
     }
 }

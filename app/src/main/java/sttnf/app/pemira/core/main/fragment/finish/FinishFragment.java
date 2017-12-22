@@ -51,10 +51,10 @@ public class FinishFragment extends Fragment implements FinishView {
 
     public void receiveData() {
         paslonVote = new Gson().fromJson(CacheManager.grabString("bem"), Calons.class);
-        new GlideUtil()
-                .with(getContext())
-                .into(imgBem)
-                .loadImage(paslonVote.getCapresma().getAvatar());
+//        new GlideUtil()
+//                .with(getContext())
+//                .into(imgBem)
+//                .loadImage(paslonVote.getCapresma().getAvatar());
     }
 
     @OnClick(R.id.btn_finish)

@@ -6,26 +6,36 @@ package sttnf.app.pemira.model;
  */
 
 public class Calon {
-    private String uuid;
-    private String avatar;
-    private String nama;
-    private String nim;
+    private String candidateId;
+    private String name;
+    private String cawapres;
+    private String header;
 
-    public Calon() {}
-
-    public String getUuid() {
-        return uuid;
+    public String getCandidateId() {
+        return candidateId;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getName() {
+        return name;
     }
 
-    public String getNama() {
-        return nama;
+    public String getCawapres() {
+        return cawapres;
     }
 
-    public String getNim() {
-        return nim;
+    public void setCandidateId(String candidateId) {
+        this.candidateId = candidateId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCawapres(String cawapres) {
+        this.cawapres = cawapres;
+    }
+
+    public String getHeader() {
+        return header;
     }
 }

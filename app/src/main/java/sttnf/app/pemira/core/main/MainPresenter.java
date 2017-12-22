@@ -5,7 +5,7 @@ import android.support.v4.view.ViewPager;
 import sttnf.app.pemira.base.BasePresenter;
 import sttnf.app.pemira.core.main.fragment.bem.BEMFragment;
 import sttnf.app.pemira.core.main.fragment.finish.FinishFragment;
-import sttnf.app.pemira.core.main.fragment.IntroduceFragment;
+import sttnf.app.pemira.core.main.fragment.intro.IntroduceFragment;
 import sttnf.app.pemira.adapter.ViewPagerAdapter;
 import sttnf.app.pemira.util.EmptyFragment;
 

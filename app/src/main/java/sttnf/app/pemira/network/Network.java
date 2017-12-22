@@ -3,6 +3,8 @@ package sttnf.app.pemira.network;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -20,11 +22,14 @@ public class Network {
     public static Retrofit CLIENT() {
 
         HttpLoggingInterceptor t = new HttpLoggingInterceptor();
-        t.setLevel(HttpLoggingInterceptor.Level.BODY);
+        t.setLevel(HttpLoggingInterceptor.Level.HEADERS);
 
         OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
 
         OkHttpClient test = new OkHttpClient.Builder()
+                .connectTimeout(1000, TimeUnit.SECONDS)
+                .writeTimeout(1000, TimeUnit.SECONDS)
+                .readTimeout(3000, TimeUnit.SECONDS)
                 .addInterceptor(t)
                 .build();
 

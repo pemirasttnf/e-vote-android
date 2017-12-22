@@ -21,11 +21,8 @@ import sttnf.app.pemira.util.RxFirebase;
 
 public class FinishPresenter extends BasePresenter<FinishView> {
 
-    private DatabaseReference dbref;
-
     FinishPresenter(FinishView view) {
         super.attachView(view);
-        dbref = FirebaseDatabase.getInstance().getReference();
     }
 
     /**
@@ -33,24 +30,7 @@ public class FinishPresenter extends BasePresenter<FinishView> {
      * @param calon
      */
     void saveVote(Calons calon) {
-        HashMap<String, String> data = new HashMap<>();
-        String yours = Rak.grab("key");
-        data.put("mahasiswa", yours);
-        data.put("vote", calon.getCapresma().getUuid());
-        try {
-            RxFirebase.setValue(dbref
-                    .child(Conts.VOTE)
-                    .child(AESCrypt.decrypt(Conts.HASHPASSW, yours)), data)
-                    .subscribe(new Observer<Boolean>() {
-                        @Override public void onCompleted() {
-                            view.onSuccess(true);
-                        }
-                        @Override public void onError(Throwable e) {
-                            view.onSuccess(false);
-                        }
-                        @Override public void onNext(Boolean aBoolean) {}
-                    });
-        } catch (GeneralSecurityException ignored) {}
+
     }
 
 }
