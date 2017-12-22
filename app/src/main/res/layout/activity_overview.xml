@@ -11,108 +11,126 @@
         android:layout_height="5dp"
         android:background="@color/colorPrimary"/>
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="70dp"
-        android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:padding="7dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_pemira"/>
-
-
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:cardElevation="8dp">
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:padding="7dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_pemira"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_edt_shadow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_margin="16dp"
+                app:cardElevation="8dp">
 
-                <EditText
-                    android:id="@+id/edt_nim"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:layout_margin="10dp"
-                    android:lines="1"
-                    android:inputType="numberDecimal"
-                    android:hint="Masukkan nim anda..."
-                    android:padding="10dp"
-                    android:background="@null"/>
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:id="@+id/layout_prodi"
-                    android:visibility="gone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="7dp">
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/card_prodi"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:id="@+id/layout_prodi"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_centerInParent="true"
-                        app:cardBackgroundColor="@color/colorPrimary"
-                        app:cardCornerRadius="4dp">
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        android:layout_marginStart="7dp">
 
-                        <TextView
-                            android:id="@+id/txt_prodi"
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/card_prodi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="6dp"
-                            android:text="TI"
-                            android:gravity="center"
-                            android:textColor="@android:color/white"
-                            android:textSize="12dp"/>
+                            android:layout_marginStart="5dp"
+                            android:layout_centerInParent="true"
+                            app:cardBackgroundColor="@color/colorAccent"
+                            app:cardCornerRadius="4dp">
 
-                    </android.support.v7.widget.CardView>
+                            <TextView
+                                android:id="@+id/txt_prodi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="6dp"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                android:textSize="12dp"/>
 
-                </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/edt_nim"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:lines="1"
+                        android:inputType="numberDecimal"
+                        android:hint="Masukkan nim anda..."
+                        android:padding="10dp"
+                        android:background="@null"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/layout_caution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@mipmap/ic_caution"/>
+
+                <TextView
+                    android:id="@+id/txt_caution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="Nim anda tidak terdaftar"
+                    android:textColor="@color/colorCaution"/>
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
-
-        <LinearLayout
-            android:id="@+id/layout_caution"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center_vertical"
-            android:visibility="gone"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="5dp"
-                android:src="@mipmap/ic_caution"/>
-
-            <TextView
-                android:id="@+id/txt_caution"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="Nim anda tidak terdaftar"
-                android:textColor="@color/colorCaution"/>
-
         </LinearLayout>
 
-    </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_next"
+            android:visibility="gone"
+            android:layout_marginTop="210dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="10dp"/>
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -142,15 +160,5 @@
         android:src="@drawable/city"
         android:scaleType="fitEnd"
         android:layout_alignParentBottom="true"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        android:src="@mipmap/ic_checklist"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"/>
 
 </RelativeLayout>

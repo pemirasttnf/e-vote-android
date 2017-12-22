@@ -11,10 +11,6 @@ import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
-import com.mindorks.placeholderview.annotations.expand.ParentPosition;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import sttnf.app.pemira.R;
 import sttnf.app.pemira.model.Calon;
@@ -26,7 +22,7 @@ import sttnf.app.pemira.util.ItemClickListener;
  */
 
 @Animate(Animation.SCALE_UP_ASC)
-@Layout(R.layout.cardview_calon)
+@Layout(R.layout.cardview)
 public class CalonAdapter {
     @View(R.id.txt_capres) private TextView txtCapres;
     @View(R.id.img_avatar) private ImageView imgAvatar;
