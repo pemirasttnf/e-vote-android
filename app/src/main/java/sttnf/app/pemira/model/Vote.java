@@ -6,5 +6,9 @@ package sttnf.app.pemira.model;
  */
 
 public class Vote {
+    private int statusCode;
 
+    public int getStatusCode() {
+        return statusCode;
+    }
 }

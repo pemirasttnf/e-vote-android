@@ -25,7 +25,8 @@ import sttnf.app.pemira.util.ItemClickListener;
 @Layout(R.layout.cardview)
 public class CalonAdapter {
     @View(R.id.txt_capres) private TextView txtCapres;
-    @View(R.id.img_avatar) private ImageView imgAvatar;
+    @View(R.id.img_capres) private ImageView imgCapres;
+    @View(R.id.img_cawapres) private ImageView imgCawapres;
     @View(R.id.txt_cawapres) private TextView txtCawapres;
 
     private ItemClickListener listener;
@@ -55,12 +56,16 @@ public class CalonAdapter {
 
     @Resolve
     private void onResolved() {
-        txtCapres.setText(calons.getName());
+        txtCapres.setText(calons.getCapres());
         txtCawapres.setText(calons.getCawapres());
         Glide.with(context)
-                .load(calons.getHeader())
+                .load(calons.getCapresPhoto())
                 .centerCrop()
-                .into(imgAvatar);
+                .into(imgCapres);
+        Glide.with(context)
+                .load(calons.getCawapresPhoto())
+                .centerCrop()
+                .into(imgCawapres);
     }
 
     @Click(R.id.card_item)

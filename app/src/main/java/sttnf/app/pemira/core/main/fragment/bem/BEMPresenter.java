@@ -22,15 +22,13 @@ public class BEMPresenter extends BasePresenter<BEMView> {
                 "    \"data\": [\n" +
                 "        {\n" +
                 "            \"candidateId\": 1,\n" +
-                "            \"name\": \"Ahmad Imaduddin\",\n" +
-                "            \"cawapres\": \"Haya Rasikhah\",\n" +
-                "            \"header\": \"http://dpm.nurulfikri.ac.id/assets/pemira/assets/img/calon/Ahmad%20Imaduddin.jpg\"\n" +
+                "            \"capres\": \"Ahmad Imaduddin\",\n" +
+                "            \"cawapres\": \"Haya Rasikhah\"\n" +
                 "        },\n" +
                 "        {\n" +
-                "            \"candidateId\": 3,\n" +
-                "            \"name\": \"Muhammad Abdul Karim\",\n" +
-                "            \"cawapres\": \"Chairin Nashrillah\",\n" +
-                "            \"header\": \"http://dpm.nurulfikri.ac.id/assets/pemira/assets/img/calon/Muhammad%20Abdul%20Karim.jpg\"\n" +
+                "            \"candidateId\": 2,\n" +
+                "            \"capres\": \"Muhammad Abdul Karim\",\n" +
+                "            \"cawapres\": \"Chairin Nashrillah\"\n" +
                 "        }\n" +
                 "    ]\n" +
                 "}";

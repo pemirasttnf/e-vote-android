@@ -7,16 +7,17 @@ package sttnf.app.pemira.model;
 
 public class Calon {
     private String candidateId;
-    private String name;
+    private String capres;
     private String cawapres;
-    private String header;
+    private int capresPhoto;
+    private int cawapresPhoto;
 
     public String getCandidateId() {
         return candidateId;
     }
 
-    public String getName() {
-        return name;
+    public String getCapres() {
+        return capres;
     }
 
     public String getCawapres() {
@@ -27,15 +28,27 @@ public class Calon {
         this.candidateId = candidateId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getCapresPhoto() {
+        return capresPhoto;
+    }
+
+    public int getCawapresPhoto() {
+        return cawapresPhoto;
+    }
+
+    public void setCapres(String capres) {
+        this.capres = capres;
     }
 
     public void setCawapres(String cawapres) {
         this.cawapres = cawapres;
     }
 
-    public String getHeader() {
-        return header;
+    public void setCapresPhoto(int capresPhoto) {
+        this.capresPhoto = capresPhoto;
+    }
+
+    public void setCawapresPhoto(int cawapresPhoto) {
+        this.cawapresPhoto = cawapresPhoto;
     }
 }

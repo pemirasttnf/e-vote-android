@@ -1,18 +1,10 @@
 package sttnf.app.pemira.core.main.fragment.finish;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.scottyab.aescrypt.AESCrypt;
-
-import java.security.GeneralSecurityException;
-import java.util.HashMap;
-
-import io.isfaaghyth.rak.Rak;
-import rx.Observer;
+import retrofit2.Response;
+import rx.Subscriber;
 import sttnf.app.pemira.base.BasePresenter;
-import sttnf.app.pemira.model.Calons;
-import sttnf.app.pemira.util.Conts;
-import sttnf.app.pemira.util.RxFirebase;
+import sttnf.app.pemira.model.Calon;
+import sttnf.app.pemira.model.Vote;
 
 /**
  * Created by isfaaghyth on 12/18/17.
@@ -29,8 +21,20 @@ public class FinishPresenter extends BasePresenter<FinishView> {
      * Untuk publish vote!
      * @param calon
      */
-    void saveVote(Calons calon) {
-
+    void saveVote(String token, Calon calon) {
+        onSubscribe(service.vote(calon.getCandidateId(), token), new Subscriber<Response<Vote>>() {
+            @Override public void onCompleted() {}
+            @Override public void onError(Throwable e) {
+                view.onVote(false);
+            }
+            @Override public void onNext(Response<Vote> res) {
+                if (res.code() == 200) {
+                    view.onVote(true);
+                } else {
+                    view.onVote(true);
+                }
+            }
+        });
     }
 
 }

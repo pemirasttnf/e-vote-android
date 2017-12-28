@@ -6,4 +6,23 @@
 
     <string name="prefix_si">01101</string>
     <string name="prefix_ti">01102</string>
+
+    <string name="err_term">"Maaf, anda tidak bisa melanjutkan. Silahkan melakukan persetujuan terhadap syarat dan ketentuan berlaku"</string>
+
+    <string name="term">
+        By participating in this Vote you agree to be bound by the following terms and conditions:\n\n
+
+        1. Voting is available online at PemiraApps\n
+        2. A standard vote carries a weighting of one, while votes cast by verified travel professionals carry a weighting of two. To apply for the upgrade, users are required to complete the Travel Industry Voters section on registration and submit a minimum of 10 votes. Verification is at the sole discretion of Pemira.\n
+        3. Voting times may be subject to change.\n
+        4. PemiraApps reserves the right to cancel or suspend voting at any time.\n
+        5. The eligibility of any vote is at the sole discretion of PemiraApps.\n
+        6. PemiraApps reserves the right to disqualify votes if it has reasonable grounds to suspect that fraudulent voting has occurred or if it considers there has been any attempt to rig the voting.\n
+        7. PemiraApps, its sub-contractors, subsidiaries and/or agencies cannot accept any responsibility whatsoever for any technical failure or malfunction or any other problem with the internet connectivity or line, system, server, provider or otherwise which may result in any vote being lost or not properly registered or recorded.\n
+        8. PemiraApps’s decision in relation to all matters affecting the Vote is final.\n
+        9. In the event of a dispute or tie or if for any other reason PemiraApps deems it necessary or appropriate, PemiraApps reserves the right to make the final determination as to which of the nominees will be declared the winner of the award.\n
+        10. Any personal data collected will be used solely in connection with current UK data protection legislation. Please see PemiraApps’s Privacy Policy for further details.\n
+        11. PemiraApps reserves the right to amend these Terms and Conditions without prior notice. Any changes will be posted on this website and such posting shall be adequate notice to all participants. Please check these Terms and Conditions each time you wish to vote.\n
+        12. These Terms and Conditions shall be governed by English Law.\n
+    </string>
 </resources>

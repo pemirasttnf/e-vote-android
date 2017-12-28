@@ -124,9 +124,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_next"
-            android:visibility="gone"
             android:layout_marginTop="210dp"
             android:layout_gravity="end"
+            android:visibility="gone"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="10dp"/>
 

@@ -6,5 +6,5 @@ package sttnf.app.pemira.core.main.fragment.finish;
  */
 
 public interface FinishView {
-    void onSuccess(boolean isSuccess);
+    void onVote(boolean isSuccess);
 }

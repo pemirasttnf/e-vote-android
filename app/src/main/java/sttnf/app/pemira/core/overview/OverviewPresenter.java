@@ -2,28 +2,12 @@ package sttnf.app.pemira.core.overview;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.scottyab.aescrypt.AESCrypt;
-
-import java.security.GeneralSecurityException;
-import java.util.HashMap;
-
-import io.isfaaghyth.rak.Rak;
 import retrofit2.Response;
-import rx.Observer;
 import rx.Subscriber;
 import sttnf.app.pemira.base.BasePresenter;
 import sttnf.app.pemira.model.Login;
-import sttnf.app.pemira.model.Mahasiswa;
 import sttnf.app.pemira.util.Conts;
-import sttnf.app.pemira.util.RxFirebase;
 
 /**
  * Created by isfaaghyth on 11/16/17.
@@ -62,8 +46,12 @@ class OverviewPresenter extends BasePresenter<OverviewView> {
     void doLogin(String nim, String password) {
         onSubscribe(service.doLogin(Conts.INFONF_TOKEN, nim, password), new Subscriber<Response<Login>>() {
             @Override public void onNext(Response<Login> res) {
-                if (res.isSuccessful()) {
+                if (res.code() == 200) { //Unauthorized
                     view.onSuccess(res.body());
+                } else if (res.code() == 401) {
+                    view.onError("Periksa kembali NIM atau sandi anda.");
+                } else if (res.code() == 403) {
+                    view.onError("Maaf, anda sudah voting sebelumnya.\nTerima kasih sudah menggunakan hak suara anda.");
                 }
             }
             @Override public void onError(Throwable e) {

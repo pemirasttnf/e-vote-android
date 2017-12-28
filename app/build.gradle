@@ -13,7 +13,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "INFONF_TOKEN", "\"sttnfnice\"")
         buildConfigField("String", "AES_PASS", "\"d5170a3e24af791ba3d674760619fcd9\"")
-        buildConfigField("String", "MAIN_URL", "\"http://dhimasganteng.ga:10000/api/v1/\"")
+        buildConfigField("String", "MAIN_URL", "\"http://dhimasganteng.ga:3000/api/v1/\"")
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -48,14 +48,9 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.android.support:cardview-v7:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
-    compile 'com.google.firebase:firebase-database:10.0.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 }
-
-
-apply plugin: 'com.google.gms.google-services'

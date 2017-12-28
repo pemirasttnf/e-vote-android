@@ -8,57 +8,62 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:gravity="center">
+        android:layout_above="@+id/agree"
+        android:padding="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alhamdulillah,"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Terima kasih!"
-            android:textStyle="bold"
+            android:text="Term of Conditions,"
+            android:layout_marginBottom="16dp"
+            fontPath="fonts/OpenSans-Bold.ttf"
             android:textSize="20sp"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/img_dpm"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@mipmap/ic_user"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/themePrimaryDark"
+                android:text="@string/term"/>
 
-            <ImageView
-                android:id="@+id/img_bem"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:src="@mipmap/ic_user"/>
-
-        </LinearLayout>
-
+        </ScrollView>
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/btn_finish"
+    <LinearLayout
+        android:id="@+id/agree"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="25dp"
-        android:background="@null"
-        android:text="KLIK DISINI UNTUK SELESAI"
-        android:textColor="@color/colorPrimaryDark"
-        android:foreground="?selectableItemBackground"
-        android:layout_alignParentBottom="true"/>
+        android:layout_marginTop="6dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/chk_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ya, Saya Setuju"
+            fontPath="fonts/OpenSans-SemiBold.ttf"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="16dp"/>
+
+        <Button
+            android:id="@+id/btn_finish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@null"
+            fontPath="fonts/OpenSans-Bold.ttf"
+            android:text="KLIK UNTUK SETUJU DAN SELESAI"
+            android:textColor="@color/colorPrimaryDark"
+            android:foreground="?selectableItemBackground"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

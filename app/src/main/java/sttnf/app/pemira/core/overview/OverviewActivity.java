@@ -1,17 +1,15 @@
 package sttnf.app.pemira.core.overview;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.TransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,31 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.isfaaghyth.rak.Rak;
-import okhttp3.Request;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import rx.Observer;
 import sttnf.app.pemira.R;
 import sttnf.app.pemira.base.BaseActivity;
 import sttnf.app.pemira.core.main.MainActivity;
 import sttnf.app.pemira.model.Login;
-import sttnf.app.pemira.network.Network;
-import sttnf.app.pemira.network.Routes;
-import sttnf.app.pemira.util.Conts;
-import sttnf.app.pemira.util.RxFirebase;
 
 /**
  * Created by isfaaghyth on 11/16/17.
@@ -63,6 +43,7 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     @BindView(R.id.txt_prodi) TextView txtProdi;
 
     private AlertDialog adPassword;
+    private boolean isToggle = false;
 
     @Override protected OverviewPresenter initPresenter() {
         return new OverviewPresenter(this);
@@ -118,10 +99,24 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
         adPassword.setTitle("Masukkan password anda");
         final EditText edtPassword = ButterKnife.findById(passwordLayout, R.id.edt_password);
         Button btnSubmit = ButterKnife.findById(passwordLayout, R.id.btn_submit);
+        Button btnShowHide = ButterKnife.findById(passwordLayout, R.id.btn_pass_toggle);
         btnSubmit.setOnClickListener(v -> {
             presenter.doLogin(nim, edtPassword.getText().toString().trim());
             loader.show();
             adPassword.dismiss();
+        });
+        btnShowHide.setOnClickListener(v -> {
+            if (!isToggle) {
+                edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                edtPassword.setSelection(edtPassword.length());
+                btnShowHide.setText("SHOW");
+                isToggle = true;
+            } else {
+                edtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                edtPassword.setSelection(edtPassword.length());
+                btnShowHide.setText("HIDE");
+                isToggle = false;
+            }
         });
         adPassword.setView(passwordLayout);
         adPassword.show();
