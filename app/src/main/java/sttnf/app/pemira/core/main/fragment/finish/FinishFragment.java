@@ -27,6 +27,7 @@ import sttnf.app.pemira.model.Calons;
 import sttnf.app.pemira.util.CacheManager;
 import sttnf.app.pemira.util.GlideUtil;
 import sttnf.app.pemira.util.ProgressLoader;
+import sttnf.app.pemira.util.StartActivities;
 
 /**
  * Created by isfaaghyth on 11/16/17.
@@ -85,7 +86,6 @@ public class FinishFragment extends Fragment implements FinishView {
 
     private void finish(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-        startActivity(new Intent(getContext(), OverviewActivity.class));
-        getActivity().finish();
+        StartActivities.start(getActivity(), OverviewActivity.class);
     }
 }

@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_introduce"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/bg_introduce">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +34,11 @@
                 android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:text="Nama orang"
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 fontPath="fonts/OpenSans-Bold.ttf"/>

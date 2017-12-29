@@ -42,6 +42,7 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     @BindView(R.id.card_prodi) CardView cardProdi;
     @BindView(R.id.txt_prodi) TextView txtProdi;
 
+    private boolean isTogglePassword;
     private AlertDialog adPassword;
 
     @Override protected OverviewPresenter initPresenter() {
@@ -101,8 +102,21 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
         Button btnShowHide = ButterKnife.findById(passwordLayout, R.id.btn_pass_toggle);
         btnSubmit.setOnClickListener(v -> {
             presenter.doLogin(nim, edtPassword.getText().toString().trim());
-            loader.show();
             adPassword.dismiss();
+            loader.show();
+        });
+        btnShowHide.setOnClickListener(v -> {
+            if (isTogglePassword) {
+                isTogglePassword = false;
+                btnShowHide.setText("Show");
+                edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                edtPassword.setSelection(edtPassword.length());
+            } else {
+                isTogglePassword = true;
+                btnShowHide.setText("Hide");
+                edtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                edtPassword.setSelection(edtPassword.length());
+            }
         });
         adPassword.setView(passwordLayout);
         adPassword.show();

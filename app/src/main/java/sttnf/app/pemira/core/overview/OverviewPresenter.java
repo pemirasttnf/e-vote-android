@@ -2,6 +2,7 @@ package sttnf.app.pemira.core.overview;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 
 import retrofit2.Response;
 import rx.Subscriber;
