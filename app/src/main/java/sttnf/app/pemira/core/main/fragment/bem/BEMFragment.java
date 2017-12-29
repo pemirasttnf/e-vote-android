@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import sttnf.app.pemira.R;
 import sttnf.app.pemira.adapter.CalonAdapter;
 import sttnf.app.pemira.core.main.MainActivity;
@@ -30,6 +32,7 @@ import sttnf.app.pemira.util.ItemClickListener;
 public class BEMFragment extends Fragment implements ItemClickListener, BEMView {
 
     @BindView(R.id.lst_bem) InfinitePlaceHolderView lstbem;
+    @BindView(R.id.btn_next) Button btnNext;
 
     private List<Calon> calons = new ArrayList<>();
     public BEMFragment() {}
@@ -71,6 +74,12 @@ public class BEMFragment extends Fragment implements ItemClickListener, BEMView 
     @Override public void onClick(int position) {
         String result = new Gson().toJson(calons.get(position));
         CacheManager.save("bem", result);
+        btnNext.setText("PILIH " + calons.get(position).getCapres());
+        btnNext.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.btn_next)
+    public void onNextClicked() {
         ((MainActivity) getActivity()).startedItem(3);
     }
 

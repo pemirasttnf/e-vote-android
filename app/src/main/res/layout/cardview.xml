@@ -43,6 +43,11 @@
 
             <View
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#50000000"/>
+
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/bg_trans_gradient"
                 android:layout_alignParentBottom="true"/>
@@ -66,7 +71,8 @@
                     android:layout_height="wrap_content"
                     android:text="afawfwaf"
                     android:textColor="@android:color/white"
-                    android:textSize="15sp" />
+                    fontPath="fonts/OpenSans-Bold.ttf"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/txt_cawapres"

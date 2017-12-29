@@ -43,7 +43,6 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     @BindView(R.id.txt_prodi) TextView txtProdi;
 
     private AlertDialog adPassword;
-    private boolean isToggle = false;
 
     @Override protected OverviewPresenter initPresenter() {
         return new OverviewPresenter(this);

@@ -70,13 +70,22 @@ public class FinishFragment extends Fragment implements FinishView {
         }
     }
 
-    @Override public void onVote(boolean isSuccess) {
+    @Override public void onVote(boolean isSuccess, int resCode) {
         loader.hide();
         if (isSuccess) {
-            startActivity(new Intent(getContext(), OverviewActivity.class));
-            getActivity().finish();
+            if (resCode == 200) {
+                finish("Terima kasih telah menggunakan hak suara anda.");
+            } else if (resCode == 403) {
+                finish("Anda sudah vote sebelumnya.");
+            }
         } else {
             Toast.makeText(getContext(), "Terjadi kesalahan.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void finish(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        startActivity(new Intent(getContext(), OverviewActivity.class));
+        getActivity().finish();
     }
 }
