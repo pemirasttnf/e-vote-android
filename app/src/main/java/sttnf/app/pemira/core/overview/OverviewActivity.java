@@ -105,19 +105,6 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
             loader.show();
             adPassword.dismiss();
         });
-        btnShowHide.setOnClickListener(v -> {
-            if (!isToggle) {
-                edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                edtPassword.setSelection(edtPassword.length());
-                btnShowHide.setText("SHOW");
-                isToggle = true;
-            } else {
-                edtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                edtPassword.setSelection(edtPassword.length());
-                btnShowHide.setText("HIDE");
-                isToggle = false;
-            }
-        });
         adPassword.setView(passwordLayout);
         adPassword.show();
     }

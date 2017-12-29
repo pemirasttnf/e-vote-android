@@ -71,7 +71,7 @@ public class BEMFragment extends Fragment implements ItemClickListener, BEMView 
     @Override public void onClick(int position) {
         String result = new Gson().toJson(calons.get(position));
         CacheManager.save("bem", result);
-        ((MainActivity) getActivity()).startedItem(4);
+        ((MainActivity) getActivity()).startedItem(3);
     }
 
 }

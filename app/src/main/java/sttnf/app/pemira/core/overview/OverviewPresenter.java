@@ -51,7 +51,8 @@ class OverviewPresenter extends BasePresenter<OverviewView> {
                 } else if (res.code() == 401) {
                     view.onError("Periksa kembali NIM atau sandi anda.");
                 } else if (res.code() == 403) {
-                    view.onError("Maaf, anda sudah voting sebelumnya.\nTerima kasih sudah menggunakan hak suara anda.");
+                    view.onError("Maaf, anda sudah voting sebelumnya.\n" +
+                            "Terima kasih sudah menggunakan hak suara anda.");
                 }
             }
             @Override public void onError(Throwable e) {

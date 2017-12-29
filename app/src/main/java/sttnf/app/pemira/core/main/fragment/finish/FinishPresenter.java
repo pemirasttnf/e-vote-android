@@ -31,7 +31,7 @@ public class FinishPresenter extends BasePresenter<FinishView> {
                 if (res.code() == 200) {
                     view.onVote(true);
                 } else {
-                    view.onVote(true);
+                    view.onVote(false);
                 }
             }
         });
