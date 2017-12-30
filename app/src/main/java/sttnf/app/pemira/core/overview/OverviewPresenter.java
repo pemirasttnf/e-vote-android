@@ -45,9 +45,11 @@ class OverviewPresenter extends BasePresenter<OverviewView> {
      * @param password
      */
     void doLogin(String nim, String password) {
+        Log.d("TAG", nim+":"+password);
         onSubscribe(service.doLogin(Conts.INFONF_TOKEN, nim, password), new Subscriber<Response<Login>>() {
             @Override public void onNext(Response<Login> res) {
-                if (res.code() == 200) { //Unauthorized
+                Log.e("TAG", res.toString());
+                if (res.code() == 200) {
                     view.onSuccess(res.body());
                 } else if (res.code() == 401) {
                     view.onError("Periksa kembali NIM atau sandi anda.");
@@ -57,9 +59,12 @@ class OverviewPresenter extends BasePresenter<OverviewView> {
                 }
             }
             @Override public void onError(Throwable e) {
+                Log.e("TAG e()", e.getMessage());
                 view.onError(e.getMessage());
             }
-            @Override public void onCompleted() {}
+            @Override public void onCompleted() {
+                stop();
+            }
         });
     }
 

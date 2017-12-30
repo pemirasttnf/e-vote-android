@@ -80,7 +80,7 @@ public class BEMFragment extends Fragment implements ItemClickListener, BEMView 
 
     @OnClick(R.id.btn_next)
     public void onNextClicked() {
-        ((MainActivity) getActivity()).startedItem(3);
+        ((MainActivity) getActivity()).startedItem(4);
     }
 
 }

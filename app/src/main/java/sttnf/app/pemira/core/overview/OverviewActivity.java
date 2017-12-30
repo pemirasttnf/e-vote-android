@@ -1,19 +1,21 @@
 package sttnf.app.pemira.core.overview;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.text.InputType;
-import android.text.method.PasswordTransformationMethod;
-import android.text.method.TransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -55,6 +57,34 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
         adPassword = new AlertDialog.Builder(this).create();
         edtNim.addTextChangedListener(presenter.nimWatch());
         btnLogin.setOnClickListener(v -> login());
+        isFinish();
+    }
+
+    private void isFinish() {
+        int finishCode = getIntent().getIntExtra("finish", 0);
+        if (finishCode == 200) {
+            showMessage(200, "Terima kasih\nsudah menggunakan\nhak suara anda.");
+        } else if (finishCode == 403) {
+            showMessage(200, "Mohon Maaf!\nanda sudah voting sebelumnya\nsilahkan tunggu hasil akhir ya sis.");
+        }
+    }
+
+    private void showMessage(int code, String message) {
+        View dialogFinish = LayoutInflater.from(this).inflate(R.layout.dialog_finish, null);
+        ImageView imgIcon = ButterKnife.findById(dialogFinish, R.id.img_ic);
+        TextView txtMessage = ButterKnife.findById(dialogFinish, R.id.txt_message);
+        if (code == 200) {
+            imgIcon.setImageResource(R.mipmap.ic_check);
+        } else {
+            imgIcon.setImageResource(R.mipmap.ic_caution);
+        }
+        txtMessage.setText(message);
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogFinish)
+                .setCancelable(false)
+                .show();
+        dialog.create();
+        new Handler().postDelayed(dialog::dismiss, 10000);
     }
 
     public void nimCanged(String s) {
@@ -94,15 +124,15 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     }
 
     private void login() {
-        final String nim = edtNim.getText().toString();
         View passwordLayout = LayoutInflater.from(this).inflate(R.layout.dialog_password_require, null);
         adPassword.setTitle("Masukkan password anda");
         final EditText edtPassword = ButterKnife.findById(passwordLayout, R.id.edt_password);
         Button btnSubmit = ButterKnife.findById(passwordLayout, R.id.btn_submit);
         Button btnShowHide = ButterKnife.findById(passwordLayout, R.id.btn_pass_toggle);
         btnSubmit.setOnClickListener(v -> {
-            presenter.doLogin(nim, edtPassword.getText().toString().trim());
-            adPassword.dismiss();
+            presenter.doLogin(edtNim.getText().toString(), edtPassword.getText().toString().trim());
+            edtPassword.setText("");
+            edtNim.setText("");
             loader.show();
         });
         btnShowHide.setOnClickListener(v -> {
@@ -124,6 +154,7 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
 
     @Override public void onSuccess(Login res) {
         loader.hide();
+        adPassword.cancel();
         Rak.entry("nim", res.getData().getNim());
         Rak.entry("token", res.getSecretToken());
         Rak.entry("nama", res.getData().getName());
@@ -137,6 +168,7 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
 
     @Override public void onError(String err) {
         loader.hide();
+        adPassword.cancel();
         showCaution(err);
     }
 }

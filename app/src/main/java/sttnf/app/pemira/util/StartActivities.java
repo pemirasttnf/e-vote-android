@@ -10,8 +10,9 @@ import android.content.Intent;
 
 public class StartActivities {
 
-    public static void start(Activity currentActivity, Class<? extends Activity> newTopActivityClass) {
+    public static void start(Activity currentActivity, Class<? extends Activity> newTopActivityClass, int status) {
         Intent intent = new Intent(currentActivity, newTopActivityClass);
+        intent.putExtra("finish", status);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         currentActivity.startActivity(intent);

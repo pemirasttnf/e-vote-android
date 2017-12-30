@@ -74,18 +74,10 @@ public class FinishFragment extends Fragment implements FinishView {
     @Override public void onVote(boolean isSuccess, int resCode) {
         loader.hide();
         if (isSuccess) {
-            if (resCode == 200) {
-                finish("Terima kasih telah menggunakan hak suara anda.");
-            } else if (resCode == 403) {
-                finish("Anda sudah vote sebelumnya.");
-            }
+            StartActivities.start(getActivity(), OverviewActivity.class, resCode);
         } else {
-            Toast.makeText(getContext(), "Terjadi kesalahan.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Terjadi kesalahan.\n" +
+                    "Pastikan anda terkoneksi internet dengan benar.", Toast.LENGTH_LONG).show();
         }
-    }
-
-    private void finish(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-        StartActivities.start(getActivity(), OverviewActivity.class);
     }
 }

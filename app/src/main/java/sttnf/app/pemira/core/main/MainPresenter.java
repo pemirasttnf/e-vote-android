@@ -26,7 +26,7 @@ class MainPresenter extends BasePresenter<MainView> {
     void setupViewPager(ViewPager viewPager) {
         adapter.addFragment(new IntroduceFragment());
         adapter.addFragment(new BEMFragment());
-//        adapter.addFragment(new EmptyFragment());
+        adapter.addFragment(new EmptyFragment());
         adapter.addFragment(new FinishFragment());
         viewPager.setAdapter(adapter);
         adapter.notifyDataSetChanged();
