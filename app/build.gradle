@@ -13,7 +13,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "INFONF_TOKEN", "\"sttnfnice\"")
         buildConfigField("String", "AES_PASS", "\"d5170a3e24af791ba3d674760619fcd9\"")
-        buildConfigField("String", "MAIN_URL", "\"http://dhimasganteng.ga:3000/api/v1/\"")
+        buildConfigField("String", "MAIN_URL", "\"http://dhimasganteng.ga:4000/api/v1/\"")
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
