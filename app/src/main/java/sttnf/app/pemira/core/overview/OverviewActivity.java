@@ -117,10 +117,12 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
         View passwordLayout = LayoutInflater.from(this).inflate(R.layout.dialog_password_require, null);
         adPassword.setTitle("Masukkan password anda");
         final EditText edtPassword = ButterKnife.findById(passwordLayout, R.id.edt_password);
+        final EditText edtUnique = ButterKnife.findById(passwordLayout, R.id.edt_unique);
         Button btnSubmit = ButterKnife.findById(passwordLayout, R.id.btn_submit);
         Button btnShowHide = ButterKnife.findById(passwordLayout, R.id.btn_pass_toggle);
         btnSubmit.setOnClickListener(v -> {
-            presenter.doLogin(edtNim.getText().toString(), edtPassword.getText().toString().trim());
+            String password = edtPassword.getText().toString().trim() + edtUnique.getText().toString().trim();
+            presenter.doLogin(edtNim.getText().toString(), password);
             adPassword.cancel();
             loader.show();
         });

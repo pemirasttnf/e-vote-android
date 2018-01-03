@@ -1,7 +1,10 @@
 package sttnf.app.pemira.core.main;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.view.KeyEvent;
 
 import butterknife.BindView;
 import sttnf.app.pemira.R;
@@ -22,6 +25,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         presenter.setupViewPager(vpOption);
         vpOption.setOffscreenPageLimit(0);
         vpOption.setPagingEnabled(false);
+    }
+
+    @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return keyCode == KeyEvent.KEYCODE_BACK || super.onKeyDown(keyCode, event);
+    }
+
+    @Override protected void onPause() {
+        super.onPause();
+        ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager.moveTaskToFront(getTaskId(), 0);
     }
 
     public void startedItem(int position) {

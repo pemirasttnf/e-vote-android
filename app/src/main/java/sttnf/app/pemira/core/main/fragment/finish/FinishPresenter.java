@@ -29,12 +29,9 @@ public class FinishPresenter extends BasePresenter<FinishView> {
         onSubscribe(service.vote(calon.getCandidateId(), token), new Subscriber<Response<Vote>>() {
             @Override public void onCompleted() {}
             @Override public void onError(Throwable e) {
-                Log.d("TAG", e.getMessage());
                 view.onVote(false, 0);
             }
             @Override public void onNext(Response<Vote> res) {
-                Log.d("TAG", new Gson().toJson(res.body()));
-                Log.d("TAG", res.toString());
                 if (res.code() == 200) {
                     view.onVote(true, 200);
                 } else if (res.code() == 403) {

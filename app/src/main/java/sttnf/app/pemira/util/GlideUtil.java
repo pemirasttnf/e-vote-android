@@ -18,12 +18,13 @@ import sttnf.app.pemira.R;
 
 public class GlideUtil {
 
-    private Context context;
+    private static volatile GlideUtil img = new GlideUtil ();
     private ImageView imageView;
 
-    public GlideUtil with(Context context) {
-        this.context = context;
-        return this;
+    private GlideUtil() {}
+
+    public static GlideUtil with() {
+        return img;
     }
 
     public GlideUtil into(ImageView img) {
@@ -31,7 +32,7 @@ public class GlideUtil {
         return this;
     }
 
-    public void loadImage(String url) {
+    public void loadImage(Context context, String url) {
         Glide.with(context)
                 .load(url)
                 .asBitmap()

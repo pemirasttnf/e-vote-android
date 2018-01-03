@@ -76,8 +76,7 @@ public class FinishFragment extends Fragment implements FinishView {
         if (isSuccess) {
             StartActivities.start(getActivity(), OverviewActivity.class, resCode);
         } else {
-            Toast.makeText(getContext(), "Terjadi kesalahan.\n" +
-                    "Pastikan anda terkoneksi internet dengan benar.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Terjadi kesalahan.", Toast.LENGTH_LONG).show();
         }
     }
 }

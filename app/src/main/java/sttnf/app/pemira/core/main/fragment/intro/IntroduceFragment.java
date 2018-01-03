@@ -44,11 +44,9 @@ public class IntroduceFragment extends Fragment {
         String avatar = Rak.grab("avatar");
         String name = Rak.grab("nama");
         String nim = Rak.grab("nim");
-        new GlideUtil()
-                .with(getContext())
+        GlideUtil.with()
                 .into(imgAvatar)
-                .loadImage(avatar);
-
+                .loadImage(getContext(), avatar);
         txtName.setText(name);
         txtNim.setText(nim);
     }
