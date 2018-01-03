@@ -1,9 +1,15 @@
 package sttnf.app.pemira.core.overview;
 
+import android.support.design.widget.FloatingActionButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import io.isfaaghyth.rak.Rak;
 import retrofit2.Response;
 import rx.Subscriber;
 import sttnf.app.pemira.base.BasePresenter;
@@ -39,6 +45,26 @@ class OverviewPresenter extends BasePresenter<OverviewView> {
         };
     }
 
+    void validationNim(LinearLayout layoutCaution, FloatingActionButton btnLogin, int... v) {
+        layoutCaution.setVisibility(v[0]);
+        btnLogin.setVisibility(v[1]);
+    }
+
+    void showCaution(LinearLayout layoutCaution, TextView txtCaution, String message) {
+        layoutCaution.setVisibility(View.VISIBLE);
+        txtCaution.setText(message);
+    }
+
+    void onSaveProfile(Login res) {
+        Rak.entry("nim", res.getData().getNim());
+        Rak.entry("token", res.getSecretToken());
+        Rak.entry("nama", res.getData().getName());
+        Rak.entry("avatar", res.getData().getAvatar());
+        Rak.entry("prodi", res.getData().getProgramStudi());
+        Rak.entry("statusMahasiswa", res.getData().getStatus());
+        Rak.entry("tahunAngkatan", res.getData().getTahunAngkatan());
+    }
+
     /**
      * Untuk narik data dari https://info.nurulfikri.ac.id/sisfo/api/user/
      * @param nim
@@ -56,6 +82,8 @@ class OverviewPresenter extends BasePresenter<OverviewView> {
                 } else if (res.code() == 403) {
                     view.onError("Maaf, anda sudah voting sebelumnya.\n" +
                             "Terima kasih sudah menggunakan hak suara anda.");
+                } else {
+                    view.onError("Periksa kembali NIM atau sandi anda.");
                 }
             }
             @Override public void onError(Throwable e) {

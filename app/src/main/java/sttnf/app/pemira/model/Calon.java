@@ -24,10 +24,6 @@ public class Calon {
         return cawapres;
     }
 
-    public void setCandidateId(String candidateId) {
-        this.candidateId = candidateId;
-    }
-
     public int getCapresPhoto() {
         return capresPhoto;
     }
@@ -36,19 +32,28 @@ public class Calon {
         return cawapresPhoto;
     }
 
-    public void setCapres(String capres) {
+    public Calon setCandidateId(String candidateId) {
+        this.candidateId = candidateId;
+        return this;
+    }
+
+    public Calon setCapres(String capres) {
         this.capres = capres;
+        return this;
     }
 
-    public void setCawapres(String cawapres) {
+    public Calon setCawapres(String cawapres) {
         this.cawapres = cawapres;
+        return this;
     }
 
-    public void setCapresPhoto(int capresPhoto) {
+    public Calon setCapresPhoto(int capresPhoto) {
         this.capresPhoto = capresPhoto;
+        return this;
     }
 
-    public void setCawapresPhoto(int cawapresPhoto) {
+    public Calon setCawapresPhoto(int cawapresPhoto) {
         this.cawapresPhoto = cawapresPhoto;
+        return this;
     }
 }

@@ -65,7 +65,7 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
         if (finishCode == 200) {
             showMessage(200, "Terima kasih\nsudah menggunakan\nhak suara anda.");
         } else if (finishCode == 403) {
-            showMessage(200, "Mohon Maaf!\nanda sudah voting sebelumnya\nsilahkan tunggu hasil akhir ya sis.");
+            showMessage(403, "Mohon Maaf!\nanda sudah voting sebelumnya\nsilahkan tunggu hasil akhir ya sis.");
         }
     }
 
@@ -90,21 +90,11 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     public void nimCanged(String s) {
         checkProdi(s);
         if (s.length() < 10) {
-            validationNim(View.VISIBLE, View.GONE);
-            showCaution("NIM anda tidak sesuai dengan format.");
+            presenter.validationNim(layoutCaution, btnLogin, View.VISIBLE, View.GONE);
+            presenter.showCaution(layoutCaution, txtCaution, "NIM anda tidak sesuai dengan format.");
         } else {
-            validationNim(View.GONE, View.VISIBLE);
+            presenter.validationNim(layoutCaution, btnLogin, View.GONE, View.VISIBLE);
         }
-    }
-
-    private void validationNim(int... v) {
-        layoutCaution.setVisibility(v[0]);
-        btnLogin.setVisibility(v[1]);
-    }
-
-    private void showCaution(String message) {
-        layoutCaution.setVisibility(View.VISIBLE);
-        txtCaution.setText(message);
     }
 
     private void checkProdi(String nim) {
@@ -131,8 +121,7 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
         Button btnShowHide = ButterKnife.findById(passwordLayout, R.id.btn_pass_toggle);
         btnSubmit.setOnClickListener(v -> {
             presenter.doLogin(edtNim.getText().toString(), edtPassword.getText().toString().trim());
-            edtPassword.setText("");
-            edtNim.setText("");
+            adPassword.cancel();
             loader.show();
         });
         btnShowHide.setOnClickListener(v -> {
@@ -153,22 +142,16 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
     }
 
     @Override public void onSuccess(Login res) {
-        loader.hide();
+        presenter.onSaveProfile(res);
         adPassword.cancel();
-        Rak.entry("nim", res.getData().getNim());
-        Rak.entry("token", res.getSecretToken());
-        Rak.entry("nama", res.getData().getName());
-        Rak.entry("avatar", res.getData().getAvatar());
-        Rak.entry("prodi", res.getData().getProgramStudi());
-        Rak.entry("statusMahasiswa", res.getData().getStatus());
-        Rak.entry("tahunAngkatan", res.getData().getTahunAngkatan());
+        loader.hide();
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
     @Override public void onError(String err) {
-        loader.hide();
+        presenter.showCaution(layoutCaution, txtCaution, err);
         adPassword.cancel();
-        showCaution(err);
+        loader.hide();
     }
 }

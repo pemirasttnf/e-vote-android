@@ -9,6 +9,7 @@ import com.mindorks.placeholderview.Animation;
 import com.mindorks.placeholderview.annotations.Animate;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
+import com.mindorks.placeholderview.annotations.NonReusable;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 
@@ -21,9 +22,11 @@ import sttnf.app.pemira.util.ItemClickListener;
  * github: @isfaaghyth
  */
 
-@Animate(Animation.SCALE_UP_ASC)
+@Animate(Animation.CARD_TOP_IN_DESC)
 @Layout(R.layout.cardview)
+@NonReusable
 public class CalonAdapter {
+    @View(R.id.border) private android.view.View border;
     @View(R.id.txt_capres) private TextView txtCapres;
     @View(R.id.img_capres) private ImageView imgCapres;
     @View(R.id.img_cawapres) private ImageView imgCawapres;
@@ -35,8 +38,11 @@ public class CalonAdapter {
 
     private int position;
 
-    public CalonAdapter(int position) {
+    public CalonAdapter() {}
+
+    public CalonAdapter position(int position) {
         this.position = position;
+        return this;
     }
 
     public CalonAdapter with(Context context) {
@@ -51,6 +57,16 @@ public class CalonAdapter {
 
     public CalonAdapter click(ItemClickListener listener) {
         this.listener = listener;
+        return this;
+    }
+
+    public CalonAdapter showBorder() {
+        border.setVisibility(android.view.View.VISIBLE);
+        return this;
+    }
+
+    public CalonAdapter hideBorder() {
+        border.setVisibility(android.view.View.GONE);
         return this;
     }
 

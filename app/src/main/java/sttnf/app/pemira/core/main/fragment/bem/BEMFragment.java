@@ -29,12 +29,14 @@ import sttnf.app.pemira.util.ItemClickListener;
  * github: @isfaaghyth
  */
 
-public class BEMFragment extends Fragment implements ItemClickListener, BEMView {
+public class BEMFragment extends Fragment implements BEMView {
 
     @BindView(R.id.lst_bem) InfinitePlaceHolderView lstbem;
     @BindView(R.id.btn_next) Button btnNext;
 
+    private List<CalonAdapter> adapters = new ArrayList<>();
     private List<Calon> calons = new ArrayList<>();
+    private Gson gsonResult;
     public BEMFragment() {}
 
     @Nullable @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class BEMFragment extends Fragment implements ItemClickListener, BEMView 
         ButterKnife.bind(this, view);
         BEMPresenter presenter = new BEMPresenter(this);
         calons.addAll(presenter.getPaslonData().getData());
+        gsonResult = new Gson();
         initList();
     }
 
@@ -55,27 +58,31 @@ public class BEMFragment extends Fragment implements ItemClickListener, BEMView 
         lstbem.removeAllViews();
         int position = 0;
         for (Calon c: calons) {
-            Calon calon = new Calon();
-            calon.setCapres(c.getCapres());
-            calon.setCawapres(c.getCawapres());
-            calon.setCandidateId(c.getCandidateId());
-            calon.setCapresPhoto(capres[position]);
-            calon.setCawapresPhoto(cawapres[position]);
+            CalonAdapter adapter = new CalonAdapter();
             lstbem.addView(
-                    new CalonAdapter(position)
-                    .with(getContext())
-                    .model(calon)
-                    .click(this)
+                    adapter.with(getContext())
+                    .position(position)
+                    .model(new Calon().setCapres(c.getCapres())
+                            .setCawapres(c.getCawapres())
+                            .setCandidateId(c.getCandidateId())
+                            .setCapresPhoto(capres[position])
+                            .setCawapresPhoto(cawapres[position]))
+                    .click(positionClicked -> {
+                        adapters.get(positionClicked).showBorder();
+                        for (int i=0; i < adapters.size(); i++) {
+                            if (i == positionClicked) continue;
+                            adapters.get(i).hideBorder();
+                        }
+                        String result = gsonResult.toJson(calons.get(positionClicked));
+                        CacheManager.save("bem", result);
+                        btnNext.setText("PILIH " + calons.get(positionClicked).getCapres());
+                        btnNext.setVisibility(View.VISIBLE);
+                        lstbem.notifyAll();
+                    })
             );
+            adapters.add(adapter);
             position++;
         }
-    }
-
-    @Override public void onClick(int position) {
-        String result = new Gson().toJson(calons.get(position));
-        CacheManager.save("bem", result);
-        btnNext.setText("PILIH " + calons.get(position).getCapres());
-        btnNext.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.btn_next)
