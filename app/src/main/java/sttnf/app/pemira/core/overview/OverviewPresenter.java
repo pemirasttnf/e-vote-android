@@ -1,17 +1,24 @@
 package sttnf.app.pemira.core.overview;
 
+import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.ButterKnife;
 import io.isfaaghyth.rak.Rak;
 import retrofit2.Response;
 import rx.Subscriber;
+import sttnf.app.pemira.R;
 import sttnf.app.pemira.base.BasePresenter;
 import sttnf.app.pemira.model.Login;
 import sttnf.app.pemira.util.Conts;
@@ -71,24 +78,18 @@ class OverviewPresenter extends BasePresenter<OverviewView> {
      * @param password
      */
     void doLogin(String nim, String password) {
-        Log.d("TAG", nim+":"+password);
+        Context context = view.getContext();
         onSubscribe(service.doLogin(Conts.INFONF_TOKEN, nim, password), new Subscriber<Response<Login>>() {
             @Override public void onNext(Response<Login> res) {
-                Log.e("TAG", res.toString());
-                if (res.code() == 200) {
-                    view.onSuccess(res.body());
-                } else if (res.code() == 401) {
-                    view.onError("Periksa kembali NIM atau sandi anda.");
-                } else if (res.code() == 403) {
-                    view.onError("Maaf, anda sudah voting sebelumnya.\n" +
-                            "Terima kasih sudah menggunakan hak suara anda.");
-                } else {
-                    view.onError("Periksa kembali NIM atau sandi anda.");
+                switch (res.code()) {
+                    case 200:view.onSuccess(res.body());break;
+                    case 401:view.onError(context.getString(R.string.status_401));break;
+                    case 403:view.onError(context.getString(R.string.status_403));break;
+                    default:view.onError(context.getString(R.string.status_conerr));
                 }
             }
             @Override public void onError(Throwable e) {
-                Log.e("TAG e()", e.getMessage());
-                view.onError(e.getMessage());
+                view.onError(context.getString(R.string.status_conerr));
             }
             @Override public void onCompleted() {
                 stop();

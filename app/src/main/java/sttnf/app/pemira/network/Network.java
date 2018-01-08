@@ -33,7 +33,7 @@ public class Network {
 
         Gson gson = new GsonBuilder().setLenient().create();
         return new Retrofit.Builder()
-                .baseUrl(BuildConfig.MAIN_URL)
+                .baseUrl(BuildConfig.PRODUCTION_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(test)

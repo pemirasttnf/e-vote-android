@@ -25,4 +25,7 @@
         11. PemiraApps reserves the right to amend these Terms and Conditions without prior notice. Any changes will be posted on this website and such posting shall be adequate notice to all participants. Please check these Terms and Conditions each time you wish to vote.\n
         12. These Terms and Conditions shall be governed by English Law.\n
     </string>
+    <string name="status_403">Maaf, anda sudah voting sebelumnya. Terima kasih sudah menggunakan hak suara anda.</string>
+    <string name="status_401">Periksa kembali NIM atau sandi anda.</string>
+    <string name="status_conerr">Tidak terhubung ke server.</string>
 </resources>

@@ -1,5 +1,6 @@
 package sttnf.app.pemira.core.overview;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -115,17 +116,15 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
 
     private void login() {
         View passwordLayout = LayoutInflater.from(this).inflate(R.layout.dialog_password_require, null);
-        adPassword.setTitle("Masukkan password anda");
+        adPassword.setTitle("Masukkan sandi dan kode unik");
         final EditText edtPassword = ButterKnife.findById(passwordLayout, R.id.edt_password);
         final EditText edtUnique = ButterKnife.findById(passwordLayout, R.id.edt_unique);
         Button btnSubmit = ButterKnife.findById(passwordLayout, R.id.btn_submit);
-        Button btnShowHide = ButterKnife.findById(passwordLayout, R.id.btn_pass_toggle);
-        btnSubmit.setOnClickListener(v -> {
-            String password = edtPassword.getText().toString().trim() + edtUnique.getText().toString().trim();
-            presenter.doLogin(edtNim.getText().toString(), password);
-            adPassword.cancel();
-            loader.show();
-        });
+        TextView btnShowHide = ButterKnife.findById(passwordLayout, R.id.btn_pass_toggle);
+        btnSubmit.setOnClickListener(v -> onLoginClicked(
+                edtPassword.getText().toString().trim(),
+                edtUnique.getText().toString().trim())
+        );
         btnShowHide.setOnClickListener(v -> {
             if (isTogglePassword) {
                 isTogglePassword = false;
@@ -141,6 +140,25 @@ public class OverviewActivity extends BaseActivity<OverviewPresenter> implements
         });
         adPassword.setView(passwordLayout);
         adPassword.show();
+    }
+
+    private void onLoginClicked(String password, String unique) {
+        String fullPassword = password + unique;
+        if (!password.isEmpty()) {
+            if (!unique.isEmpty()) {
+                presenter.doLogin(edtNim.getText().toString(), fullPassword);
+                adPassword.cancel();
+                loader.show();
+            } else {
+                Toast("Maaf, anda belum memasukkan kode unik");
+            }
+        } else {
+            Toast("Silahkan masukkan kata sandi anda.");
+        }
+    }
+
+    @Override public Context getContext() {
+        return this;
     }
 
     @Override public void onSuccess(Login res) {
