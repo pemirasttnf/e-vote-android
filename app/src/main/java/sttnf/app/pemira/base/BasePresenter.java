@@ -23,14 +23,13 @@ public class BasePresenter<V> {
 
     public void attachView(V view) {
         this.view = view;
-        service = Network.CLIENT().create(Routes.class);
+        service = Network.client().create(Routes.class);
     }
 
     public void dettachView() {
         this.view = null;
         if (compositeSubscription != null && compositeSubscription.hasSubscriptions()) {
             compositeSubscription.unsubscribe();
-            Log.e("BasePresenter", "dettachView");
         }
     }
 

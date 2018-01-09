@@ -1,6 +1,7 @@
 package sttnf.app.pemira.core.overview;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 
 import sttnf.app.pemira.model.Login;
 
@@ -11,8 +12,7 @@ import sttnf.app.pemira.model.Login;
  */
 
 interface OverviewView {
-    Context getContext();
-    void onSuccess(Login res);
-    void onError(String err);
     void nimCanged(String s);
+    AppCompatActivity context();
+    void showMessage(int code, String message);
 }

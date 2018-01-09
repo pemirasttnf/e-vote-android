@@ -19,21 +19,15 @@ import sttnf.app.pemira.util.UnsafeOkHttpClient;
  */
 
 public class Network {
-    public static Retrofit CLIENT() {
-
-        //HttpLoggingInterceptor t = new HttpLoggingInterceptor();
-        //t.setLevel(HttpLoggingInterceptor.Level.BODY);
-        //OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
-
+    public static Retrofit client() {
         OkHttpClient test = new OkHttpClient.Builder()
                 .connectTimeout(100, TimeUnit.SECONDS)
                 .writeTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(300, TimeUnit.SECONDS)
                 .build();
-
         Gson gson = new GsonBuilder().setLenient().create();
         return new Retrofit.Builder()
-                .baseUrl(BuildConfig.PRODUCTION_URL)
+                .baseUrl(BuildConfig.DEVELOPMENT_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(test)

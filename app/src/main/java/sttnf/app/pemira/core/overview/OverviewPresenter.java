@@ -3,6 +3,7 @@ package sttnf.app.pemira.core.overview;
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -30,8 +31,11 @@ import sttnf.app.pemira.util.Conts;
 
 class OverviewPresenter extends BasePresenter<OverviewView> {
 
+    private AppCompatActivity context;
+
     OverviewPresenter(OverviewView view) {
         super.attachView(view);
+        context = view.context();
     }
 
     String checkPrefixProdi(String str) {
@@ -62,39 +66,13 @@ class OverviewPresenter extends BasePresenter<OverviewView> {
         txtCaution.setText(message);
     }
 
-    void onSaveProfile(Login res) {
-        Rak.entry("nim", res.getData().getNim());
-        Rak.entry("token", res.getSecretToken());
-        Rak.entry("nama", res.getData().getName());
-        Rak.entry("avatar", res.getData().getAvatar());
-        Rak.entry("prodi", res.getData().getProgramStudi());
-        Rak.entry("statusMahasiswa", res.getData().getStatus());
-        Rak.entry("tahunAngkatan", res.getData().getTahunAngkatan());
-    }
-
-    /**
-     * Untuk narik data dari https://info.nurulfikri.ac.id/sisfo/api/user/
-     * @param nim
-     * @param password
-     */
-    void doLogin(String nim, String password) {
-        Context context = view.getContext();
-        onSubscribe(service.doLogin(Conts.INFONF_TOKEN, nim, password), new Subscriber<Response<Login>>() {
-            @Override public void onNext(Response<Login> res) {
-                switch (res.code()) {
-                    case 200:view.onSuccess(res.body());break;
-                    case 401:view.onError(context.getString(R.string.status_401));break;
-                    case 403:view.onError(context.getString(R.string.status_403));break;
-                    default:view.onError(context.getString(R.string.status_conerr));
-                }
-            }
-            @Override public void onError(Throwable e) {
-                view.onError(context.getString(R.string.status_conerr));
-            }
-            @Override public void onCompleted() {
-                stop();
-            }
-        });
+    void isFinish() {
+        int finishCode = context.getIntent().getIntExtra("finish", 0);
+        if (finishCode == 200) {
+            view.showMessage(200, context.getString(R.string.thank_you));
+        } else if (finishCode == 403) {
+            view.showMessage(403, context.getString(R.string.permission_denied));
+        }
     }
 
 }
