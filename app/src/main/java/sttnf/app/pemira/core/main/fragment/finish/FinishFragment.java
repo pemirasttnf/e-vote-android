@@ -1,15 +1,12 @@
 package sttnf.app.pemira.core.main.fragment.finish;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -19,13 +16,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.isfaaghyth.rak.Rak;
 import sttnf.app.pemira.R;
-import sttnf.app.pemira.core.main.fragment.finish.FinishPresenter;
-import sttnf.app.pemira.core.main.fragment.finish.FinishView;
 import sttnf.app.pemira.core.overview.OverviewActivity;
 import sttnf.app.pemira.model.Calon;
-import sttnf.app.pemira.model.Calons;
-import sttnf.app.pemira.util.CacheManager;
-import sttnf.app.pemira.util.GlideUtil;
 import sttnf.app.pemira.util.ProgressLoader;
 import sttnf.app.pemira.util.StartActivities;
 
@@ -57,7 +49,7 @@ public class FinishFragment extends Fragment implements FinishView {
     }
 
     public void receiveData() {
-        paslonVote = new Gson().fromJson(CacheManager.grabString("bem"), Calon.class);
+        paslonVote = new Gson().fromJson((String) Rak.grab("paslon"), Calon.class);
     }
 
     @OnClick(R.id.btn_finish)

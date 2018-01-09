@@ -17,12 +17,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.isfaaghyth.rak.Rak;
 import sttnf.app.pemira.R;
 import sttnf.app.pemira.adapter.CalonAdapter;
 import sttnf.app.pemira.core.main.MainActivity;
 import sttnf.app.pemira.model.Calon;
-import sttnf.app.pemira.util.CacheManager;
-import sttnf.app.pemira.util.ItemClickListener;
 
 /**
  * Created by isfaaghyth on 11/16/17.
@@ -74,7 +73,7 @@ public class BEMFragment extends Fragment implements BEMView {
                             adapters.get(i).hideBorder();
                         }
                         String result = gsonResult.toJson(calons.get(positionClicked));
-                        CacheManager.save("bem", result);
+                        Rak.entry("paslon", result);
                         btnNext.setText("PILIH " + calons.get(positionClicked).getCapres());
                         btnNext.setVisibility(View.VISIBLE);
                         lstbem.notifyAll();

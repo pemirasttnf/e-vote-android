@@ -17,6 +17,10 @@ public class BEMPresenter extends BasePresenter<BEMView> {
         super.attachView(view);
     }
 
+    /**
+     * seharusnya ambil dari /Candidates, tapi meminimalisir request ke server
+     * @return
+     */
     Calons getPaslonData() {
         String paslon = "{\n" +
                 "    \"data\": [\n" +

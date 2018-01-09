@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import io.isfaaghyth.rak.Rak;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -13,11 +14,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class App extends Application {
 
-    private static Context context;
-
     @Override public void onCreate() {
         super.onCreate();
-        context = this;
+        Rak.initialize(this);
         MultiDex.install(this);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/OpenSans-Regular.ttf")
@@ -25,7 +24,4 @@ public class App extends Application {
                 .build());
     }
 
-    public static Context getContext() {
-        return context;
-    }
 }

@@ -5,6 +5,4 @@ package sttnf.app.pemira.core.main.fragment.bem;
  * github: @isfaaghyth
  */
 
-public interface BEMView {
-
-}
+public interface BEMView {}
