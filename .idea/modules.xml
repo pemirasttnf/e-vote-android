@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Pemira.iml" filepath="$PROJECT_DIR$/Pemira.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pemira2017-android.iml" filepath="$PROJECT_DIR$/.idea/pemira2017-android.iml" />
     </modules>
   </component>
 </project>
