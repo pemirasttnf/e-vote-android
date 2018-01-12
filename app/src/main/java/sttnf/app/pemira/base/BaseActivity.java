@@ -38,8 +38,6 @@ abstract public class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override protected void onDestroy() {
         super.onDestroy();
-        if (presenter != null) {
-            presenter.dettachView();
-        }
+        if (presenter != null) presenter.dettachView();
     }
 }
